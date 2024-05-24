@@ -1,0 +1,938 @@
+<link rel="stylesheet" type="text/css" href="../css/leaflet.css">
+<link rel="stylesheet" type="text/css" href="../css/rtma.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<div class="container">
+<div id="main"></div>
+<input type="button" value="Download plot"  id="download" class="pn"></input>
+   <div id="divdropimage1" class="select">
+    <div id="afterdropimage1" class="select-styled">
+    </div>
+   </div>
+<div id="map" style="position:absolute; top: 130px; left: 975px; height: 325px; width: 350px"></div>
+</div>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
+<script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
+<script type="text/javascript" src="../js/downloadSVGByClass.js"></script>
+
+<script>
+//function to move indices
+Array.prototype.move = function (from, to) {
+  this.splice(to, 0, this.splice(from, 1)[0]);
+};
+
+//function that moves line to front on mouseover
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+};
+var monthNames = [
+  "January", "February", "March",
+  "April", "May", "June", "July",
+  "August", "September", "October",
+  "November", "December"
+];
+var currentdate=new Date(Date.UTC(2017,5,6,14,0,0));
+var subdate=new Date(Date.UTC(2017,5,6,14,0,0));
+var sday=currentdate.getUTCDate();
+var smonthindex=currentdate.getUTCMonth();
+var syear=currentdate.getUTCFullYear();
+var shour=currentdate.getUTCHours();
+var strdate=("ending "+("0"+shour).slice(-2)+' UTC '+("0"+sday).slice(-2)+' '+monthNames[smonthindex]+' ' +syear);
+var date=("ending "+("0"+shour).slice(-2)+' UTC '+("0"+sday).slice(-2)+' '+monthNames[smonthindex]+' ' +syear);
+//var filedate=(syear+("0"+(smonthindex+1)).slice(-2)+("0"+sday).slice(-2)+("0"+shour).slice(-2));
+var date_list=[]
+var date_objects=[]
+
+//Set number of cycles in dropdown menu
+for (i=0; i<57;i++) {
+  subdate.setUTCHours(currentdate.getUTCHours()-(6*i));
+  subdate=new Date(currentdate-(360*i*60000));
+  minusyear=subdate.getUTCFullYear();
+  minusmonth=("0"+(subdate.getUTCMonth()+1)).slice(-2);
+  minusday=("0"+subdate.getUTCDate()).slice(-2);
+  minushour=("0"+subdate.getUTCHours()).slice(-2);
+  date_list.push(minusyear+minusmonth+minusday+minushour);
+  date_objects.push("ending" +minushour+' UTC '+minusday+' '+monthNames[subdate.getUTCMonth()]+' ' +minusyear);
+}
+// STATIONS, LATS, LONS
+var hinames=['PAJN','KLIT','KPHX','KLAX','KSFO','KDEN','KJAX','KMIA','KATL','KBOI','KORD','KDDC','KCVG','KMSY','KBOS','KCAR','KANJ','KMSP','KMCI','KSTL','KGTF','KILM','KBIS','KABQ','KTPH','KBUF','KMFR','KDFW','KBRO','KLBB','KSAT','KSLC','KIAD','KSEA','KONT','KBLV','KDTW','KINL','KHSE','KFAR','KVTN','KSAF','KLGA','KEUG','KCHS','KGEG','KSHR','KTUS','KFLG','KFAT','KMRY','KSAC','KSAN','KGJT','KEYW','KMCO','KDSM','KIND','KASD','KACK','KHUL','KDLH','KGGW','KWEY','KRDU','KGFK','KOMA','KLAS','KRNO','KOKC','KPDX','KPDT','KSLE','KPIT','KRAP','KFSD','KMEM','KBNA','KCRP','KDRT','KELP','KIAH','KUIL','KRIW','KEET','KMOB','KFSM','KPGA','KPRC','KNYL','KEDW','KPSP','KRDD','KVBG','KCOS','KPUB','KBDR','KDAB','KTLH','KTPA','KPBI','KMCN','KDVN','KSUX','KPIH','KFWA','KGLD','KTOP','KICT','KLOU','KPAH','KLCH','KSHV','KBWI','KBGR','KPWM','KGLR','KGRR','KAXN','KHIB','KSTC','KJAN','KHVR','KMSO','KNKT','KGSO','KLNK','KLBF','KLVS','K2C2','KEKO','KELY','KWMC','KALB','KBGM','KSYR','KCLE','KILN','KTUL','KDLS','KPHL','KUNV','KPVD','KCAE','KGSP','KABR','KPIR','KAMA','KAUS','KCDS','KLRD','KMWL','KDPG','KROA','KORF','KBTV','KSMP','KYKM','KGRB','KMKE','KHTS','KMGW','KCYS','KCOD','KHSV','KMGM','KFYV','KGCN','KINW','KNID','KAKO','KASE','KCAG','KDRO','KGXY','KLAA','KLIC','KHFD','KGNV','KMLB','KVRB','KAHN','KAGS','KSAV','KCID','KDBQ','KALO','KCOE','KDEC','KPIA','KRFD','KEVV','KGYY','KLAF','KSBN','KGCK','KHYS','KLBL','KMHK','KBWG','KLEX','KBTR','KPOE','KSBY','KAUG','KAPN','KFNT','KLAN','KMKG','KMQT','KBRD','KPKD','KCOU','KSTJ','KGWO','KTUP','KBZN','KCTB','KHLN','KMLS','KAVL','KCLT','KFAY','KACY','KCVS','KHMN','KROW','KPOU','KUCA','KCMH','KDAY','KADM','KEND','KAST','KERI','KTRI','KCHA','KTYS','KABI','KCLL','KGGG','KTYR','KSPS','KCDC','KENV','KRIC','KMPV','KHQM','KEAU','KMSN','KEKN','KMRB','PANC','PANT','PABR','PABE','PACD','PASY','PAFA','PAKN','PADQ','PAOT','PAMC','PAOM','PASN','PAYA','PHTO','PHLI','PHMO','KJKL','KSGF','KMAF','KSJT','PABT','PALU','PAEH','PACZ','PACV','PASC','PABI','PADL','PAGA','PAGK','PAHN','PAHO','PAIL','PAIM','PAOR','PAPG','PASI','PATK','PATA','PATC','PAUN','PADU','KOZR','KELD','KJBR','KTXK','KDUG','KSAD','KSOW','KACV','KBFL','KBYS','KBIH','KBLH','KNJK','KMOD','KEED','KPRB','KSTS','KALS','KVPS','KRSW','KPAM','KABY','KAMG','KCSG','KVLD','PHKO','KBRL','KFOD','KOTM','KSPW','KBYI','KSUN','KLWS','KMYL','KSMN','KCNU','KMLU','KRWF','KRST','KRRT','KIRK','KPOF','KSZL','KNMM','KPIB','KBIL','KDLN','KGDV','KGPI','KLWT','KDIK','KJMS','KMIB','KISN','KCDR','KGRI','KMCK','KONL','KBFF','KCON','KGUP','KCNM','KDMN','KHOB','KTCS','KLOL','KGTB','KMSS','KFDY','KGAG','KHBR','KMLC','KBKE','KBNO','KLKV','KOTH','KRDM','KREO','KAVP','KBFD','KJST','KMDT','KFLO','KHON','KMBG','KATY','KCSV','KDYR','KDHT','KFST','KJCT','KLFK','KMRF','KPSX','KACT','KLGU','KVEL','KCHO','KBLI','KEPH','KHYR','KLSE','KCWA','KBKW','KPKB','KBPI','KCPR','KGCC','KJAC','KRWL','KRKS','KWRL','KAAA','KTNB','KORE','KISP','PHNL','TJSJ','PGUA','KBLU','KNHK','KCBE','K2WX','KDOV','41001','41004','41008','41009','41010','41013','41025','42001','42002','42003','42019','42035','42039','42080','46011','46013','46015','46023','46025','46026','46027','46028','46047','46050','CO057','BLPC2','CSU60','CGRC2','F0183__a','KGEV','KHLX','KBCB','KBLF','KHSP','44008','44089','KDVL','KIWA','KSBA','KHGR','KBHB','KPNS','PPSC1','SNO38','TPRIC','ALP55','44013','BONW4','EVNW4','SYLW4','SYRW4','NORM8','K0CO','E2131','DMTC2','KBHM','AT680','AT688__a','ASBTP','46029','46089','KMWN','FHPF1','E7468','KGLS','ATGM1','KDCA','KGXF','KLAM','K1S5','K05U']
+var hilats=[58.37,34.73,33.43,33.93,37.62,39.85,30.5,25.8,33.63,43.57,41.98,37.77,39.05,30.0,42.37,46.87,46.47,44.88,39.3,38.75,47.47,34.27,46.77,35.05,38.05,42.93,42.38,32.9,25.92,33.67,29.53,40.77,38.93,47.45,34.05,38.53,42.23,48.57,35.23,46.93,42.87,35.62,40.78,44.13,32.9,47.62,44.77,32.13,35.13,36.78,36.58,38.5,32.73,39.12,24.55,28.42,41.53,39.72,30.35,41.25,46.12,46.85,48.22,44.63,35.9,47.95,41.32,36.07,39.5,35.38,45.6,45.7,44.9,40.5,44.05,43.58,35.07,36.12,27.77,29.37,31.82,30.0,47.93,43.07,33.18,30.68,35.33,36.92,34.65,32.63,34.88,33.82,40.52,34.73,38.82,38.28,41.17,29.18,30.4,27.97,26.68,32.68,41.62,42.38,42.92,40.98,39.37,39.07,37.65,38.22,37.07,30.13,32.45,39.17,44.8,43.65,45.02,42.88,45.87,47.38,45.55,32.32,48.55,46.92,34.9,36.1,40.85,41.12,35.65,32.37,40.82,39.3,40.9,42.75,42.22,43.12,41.42,39.43,36.2,45.62,39.87,40.85,41.72,33.93,34.9,45.45,44.38,35.22,30.18,34.43,27.55,32.78,40.2,37.32,36.9,44.47,47.28,46.57,44.48,42.95,38.37,39.65,41.15,44.52,34.65,32.3,36.02,35.95,35.03,35.67,40.17,39.23,40.5,37.15,40.42,38.07,39.27,41.73,29.7,28.1,27.65,33.95,33.37,32.12,41.88,42.4,42.55,47.77,39.83,40.67,42.2,38.05,41.62,40.42,41.7,37.92,38.85,37.03,39.13,36.97,38.03,30.53,31.05,38.33,44.32,45.07,42.97,42.78,43.17,46.53,46.4,46.9,38.82,39.77,33.5,34.27,45.78,48.6,46.6,46.43,35.43,35.22,34.98,39.45,34.37,32.85,33.3,41.63,43.15,40.0,39.9,34.28,36.32,46.15,42.08,36.48,35.03,35.82,32.42,30.58,32.38,32.37,33.98,37.7,40.72,37.52,44.2,46.97,44.87,43.13,38.88,39.4,61.17,55.03,71.28,60.78,55.2,52.72,64.8,58.68,57.75,66.87,62.97,64.5,57.15,59.52,19.72,21.97,21.13,37.6,37.23,31.95,31.37,66.92,68.88,58.65,61.78,60.5,70.2,64.0,59.05,64.73,62.15,59.25,59.63,59.75,66.0,62.97,56.82,57.07,62.3,65.17,65.57,63.88,53.9,31.28,33.22,35.83,33.45,31.47,32.85,34.27,40.98,35.43,35.28,37.37,33.62,32.82,37.62,34.77,35.67,38.5,37.43,30.47,26.53,30.07,31.53,31.53,32.52,30.78,19.73,40.77,42.53,41.1,43.17,42.55,43.5,46.37,44.9,45.12,37.67,32.52,44.55,43.9,48.93,40.1,36.77,38.72,32.53,31.47,45.8,45.25,47.12,48.32,47.03,46.8,46.93,48.42,48.17,42.83,40.97,40.2,42.47,41.87,43.2,35.52,32.33,32.27,32.67,33.23,40.07,44.07,44.93,41.02,36.3,34.98,34.88,44.85,43.6,42.17,43.42,44.25,42.58,41.33,41.8,40.32,40.2,34.18,44.38,45.55,44.9,35.95,36.0,36.02,30.92,30.5,31.23,30.37,28.72,31.62,41.78,40.45,38.13,48.8,47.3,46.02,43.88,44.78,37.8,39.35,42.58,42.9,44.33,43.62,41.78,41.6,43.97,40.15,36.2,42.57,40.8,21.33,18.43,13.57,39.28,38.28,39.62,45.57,39.13,34.645,32.501,31.4,28.522,28.903,33.436,35.006,25.888,26.091,26.007,27.907,29.232,28.739,24.396,34.956,38.242,42.764,34.714,33.749,37.755,41.85,35.748,32.403,44.656,37.55,37.79,38.15,38.35,37.1,36.43,36.77,37.22,37.29,37.95,40.5,37.8,48.12,33.31,34.43,39.7,44.45,30.48,36.25,47.42,47.31,47.44,42.3,43.2,44.65,44.48,44.46,45.01,39.79,39.71,39.76,33.57,36.1,36.08,35.33,46.1,45.9,44.27,28.15,28.17,29.27,44.39,38.85,32.88,35.88,46.33,39.6]
+var hilons=[-134.58,-92.23,-112.02,-118.38,-122.37,-104.65,-81.68,-80.28,-84.45,-116.23,-87.93,-99.97,-84.67,-90.25,-71.02,-68.02,-84.37,-93.23,-94.73,-90.37,-111.38,-77.9,-100.75,-106.62,-117.08,-78.73,-122.87,-97.02,-97.42,-101.82,-98.47,-111.97,-77.45,-122.32,-117.58,-89.83,-83.33,-93.4,-75.62,-96.82,-100.55,-106.1,-73.88,-123.22,-80.03,-117.53,-106.97,-110.95,-111.67,-119.72,-121.85,-121.5,-117.18,-108.52,-81.75,-81.33,-93.67,-86.3,-89.82,-70.07,-67.8,-92.2,-106.62,-111.08,-78.78,-97.18,-95.9,-115.17,-119.77,-97.6,-122.62,-118.83,-123.0,-80.27,-103.05,-96.75,-89.98,-86.68,-97.5,-100.92,-106.38,-95.37,-124.55,-108.47,-86.78,-88.25,-94.37,-111.45,-112.42,-114.58,-117.87,-116.5,-122.3,-120.58,-104.68,-104.5,-73.13,-81.07,-84.35,-82.53,-80.1,-83.65,-90.58,-96.38,-112.57,-85.18,-101.7,-95.63,-97.43,-85.67,-88.77,-93.22,-93.83,-76.68,-68.82,-70.3,-84.68,-85.52,-95.4,-92.83,-94.05,-90.08,-109.77,-114.1,-76.88,-79.95,-96.77,-100.67,-105.13,-106.47,-115.78,-114.85,-117.8,-73.8,-75.98,-76.1,-81.85,-83.8,-95.88,-121.17,-75.23,-77.83,-71.43,-81.12,-82.22,-98.42,-100.28,-101.72,-97.68,-100.28,-99.47,-98.07,-112.92,-79.97,-76.2,-73.15,-121.33,-120.53,-88.13,-87.9,-82.55,-79.92,-104.8,-109.02,-86.78,-86.4,-94.17,-112.15,-110.72,-117.67,-103.22,-106.87,-107.52,-107.77,-104.62,-102.68,-103.67,-72.65,-82.28,-80.65,-80.42,-83.33,-81.97,-81.2,-91.72,-90.7,-92.4,-116.82,-88.85,-89.68,-89.1,-87.52,-87.42,-86.93,-86.32,-100.72,-99.27,-100.97,-96.68,-86.42,-84.6,-91.15,-93.2,-75.5,-69.8,-83.57,-83.75,-84.58,-86.23,-87.57,-94.13,-95.07,-92.22,-94.92,-90.08,-88.77,-111.17,-112.37,-111.98,-105.88,-82.53,-80.95,-78.88,-74.57,-103.32,-106.08,-104.5,-73.88,-75.38,-82.88,-84.22,-97.02,-97.92,-123.88,-80.18,-82.4,-85.2,-83.98,-99.68,-96.37,-94.72,-95.4,-98.5,-113.1,-114.02,-77.32,-72.57,-123.93,-91.47,-89.35,-79.85,-77.98,-150.02,-131.57,-156.8,-161.85,-162.72,-174.12,-147.88,-156.65,-152.5,-162.58,-155.62,-165.43,-170.22,-139.67,-155.05,-159.33,-157.18,-83.32,-93.38,-102.2,-100.5,-151.52,-166.13,-162.07,-166.03,-145.5,-148.47,-145.73,-158.52,-156.93,-145.45,-135.52,-151.5,-154.92,-153.7,-141.93,-132.97,-135.35,-150.1,-152.1,-167.92,-160.8,-166.53,-85.72,-92.82,-90.65,-93.98,-109.58,-109.63,-110.0,-124.1,-119.05,-116.62,-118.35,-114.72,-115.67,-120.95,-114.62,-120.63,-122.82,-105.87,-86.52,-81.75,-85.57,-84.2,-82.5,-84.95,-83.27,-156.05,-91.13,-94.17,-92.45,-95.22,-113.77,-114.28,-117.02,-116.1,-113.87,-95.48,-92.03,-95.08,-92.5,-95.33,-92.55,-90.32,-93.53,-88.57,-89.32,-108.55,-112.55,-104.78,-114.25,-109.47,-102.8,-98.67,-101.33,-103.63,-103.1,-98.32,-100.58,-98.67,-103.58,-71.5,-108.8,-104.25,-107.72,-103.22,-107.27,-118.57,-75.72,-74.85,-83.67,-99.77,-99.05,-95.78,-117.82,-118.95,-120.4,-124.25,-121.15,-117.87,-75.72,-78.63,-78.83,-76.77,-79.73,-98.23,-100.42,-97.15,-85.08,-89.4,-102.55,-102.92,-99.77,-94.75,-104.02,-96.25,-97.23,-111.85,-109.52,-78.45,-122.53,-119.52,-91.45,-91.25,-89.67,-81.12,-81.42,-110.1,-106.47,-105.55,-110.73,-107.2,-109.07,-107.95,-89.33,-81.65,-72.28,-73.1,-157.92,-66.0,-144.92,-120.7,-76.4,-78.77,-103.52,-75.47,-72.695,-79.099,-80.868,-80.188,-78.464,-77.743,-75.402,-89.658,-93.758,-85.648,-95.353,-94.413,-86.006,-81.934,-121.019,-123.301,-124.832,-120.967,-119.053,-122.839,-124.381,-121.884,-119.536,-124.526,-106.78,-106.78,-105.5,-105.45,-81.34,-81.42,-81.81,-80.42,-81.2,-79.83,-69.2,-75.3,-98.92,-111.66,-119.83,-77.73,-68.37,-87.18,-121.78,-121.43,-121.31,-121.44,-70.7,-110.4,-109.78,-110.16,-110.14,-110.01,-105.77,-105.7,-105.6,-86.75,-112.1,-112.13,-111.69,-124.5,-125.8,-71.3,-82.8,-82.79,-94.87,-68.2,-77.03,-112.71,-106.28,-119.96,-116.0]
+var stationname="KORD";
+var mymap = L.map('map',{worldCopyJump:true}).setView([38.0,-97.5],3);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{
+        maxZoom:17,minZoom:2,
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'}).addTo(mymap);
+
+L.control.scale({position:'topright'}).addTo(mymap);
+
+//Marker Popup
+var popup = L.popup();
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(mymap);
+}
+
+mymap.on('click', onMapClick);
+
+
+bstation="";
+function onMarkerClick(e){
+    transitiontime=750
+    clicked=1 
+    filename="/home/www/emc/htdocs/mmb/jcarley/rtma_urma/prod_ts/urma/station_"+e.target.options.name+".csv";
+    stationname=e.target.options.name;
+    console.log(filename);
+  for ( blah in circlea._layers ) {
+    var obj = circlea._layers[blah];
+    if (obj.options.name==stationname) {
+    obj._path.attributes.fill.value='#f00';
+    }
+    else{
+      if (obj.options.name==bstation && mymap.getZoom()>=5) {
+        circlea.removeLayer(obj);
+        circlebb.addLayer(obj);
+       }
+      obj._path.attributes.fill.value='#fff';
+    }
+   }
+  var isb = 0;
+  for ( blah in circlebb._layers ) {
+    var obj = circlebb._layers[blah];
+    if (obj._path) {
+    if (obj.options.name==stationname) {
+    obj._path.attributes.fill.value='#f00';
+    isb=1;
+    bstation=obj.options.name;
+    circlea.addLayer(obj);
+    circlebb.removeLayer(obj);
+    mymap.removeLayer(circlea);
+    mymap.addLayer(circlea);
+  for ( blah in circlea._layers ) {
+    var obj = circlea._layers[blah];
+    if (obj.options.name==stationname) {
+    obj._path.attributes.fill.value='#f00';
+      }
+    }
+    }
+    else{
+      obj._path.attributes.fill.value='#fff';
+    }
+   }
+   }
+    updateData();
+}
+function onMouseover(e) {
+  this._path.attributes.fill.value='#f00';
+}
+function onMouseout(e) {
+  if (this.options.name!=stationname) {
+    this._path.attributes.fill.value='#fff';
+  }
+}
+pointdata=[]
+function initc() {
+circlea= new L.FeatureGroup();
+circlebb= new L.FeatureGroup();
+customMarker = L.CircleMarker.extend({options: {name:'custom name'}});
+for (i=0; i<hilons.length;i++) {
+    if (i<141 || hinames[i].slice(0,1)=="P") {
+    circlea.addLayer(L.circleMarker([+hilats[i],+hilons[i]],{weight:1,color:'#000',fillColor:'#fff',fillOpacity:1,radius:5,title:hinames[i],name:hinames[i]})
+      .on('click',onMarkerClick)
+      .on('mouseover',onMouseover)
+      .on('mouseout',onMouseout))
+      var resflag=0;}
+    else {resflag=1;
+    circlebb.addLayer(L.circleMarker([+hilats[i],+hilons[i]],{weight:1,color:'#000',fillColor:'#fff',fillOpacity:1,radius:7,title:hinames[i],name:hinames[i]})
+      .on('click',onMarkerClick)
+      .on('mouseover',onMouseover)
+      .on('mouseout',onMouseout))
+}
+  }
+}
+initc()
+    mymap.addLayer(circlea);
+  for ( blah in circlea._layers ) {
+    var obj = circlea._layers[blah];
+    if (obj.options.name==stationname) {
+    obj._path.attributes.fill.value='#f00';
+    }
+x
+   }
+mymap.on('zoomend',function() {
+  var currentZoom=mymap.getZoom();
+  for ( blah in circlea._layers ) {
+    var obj = circlea._layers[blah];
+    //console.log(obj);
+    obj._radius = currentZoom+2;
+  }
+  if (currentZoom>=5) {
+  for ( blah in circlea._layers ) {
+    var obj = circlea._layers[blah];
+      if (obj.options.name==bstation && obj.options.name!==stationname) {
+      //if (bstation.some(elem => elem==obj.options.name)) {
+        circlea.removeLayer(obj);
+        circlebb.addLayer(obj);
+       }
+   }
+    //mymap.removeLayer(circlebb);
+    mymap.addLayer(circlebb);
+    //console.log(circlebb);
+  for ( blah in circlebb._layers ) {
+    var obj = circlebb._layers[blah];
+    if (obj._path) {
+    if (obj.options.name==stationname) {
+    obj._path.attributes.fill.value='#f00';
+    }
+    else{
+      obj._path.attributes.fill.value='#fff';
+    }
+   }
+   }
+  }
+  if (currentZoom==5) {
+  for ( blah in circlebb._layers ) {
+    var obj = circlebb._layers[blah];
+    obj._radius = 7;
+  }
+  for ( blah in circlea._layers ) {
+    var obj = circlea._layers[blah];
+    obj._radius = 7;
+  }
+  }
+  if (currentZoom==6) {
+  for ( blah in circlebb._layers ) {
+    var obj = circlebb._layers[blah];
+    obj._radius = 9;
+  }
+  for ( blah in circlea._layers ) {
+    var obj = circlea._layers[blah];
+    obj._radius = 9;
+  }
+  }
+  if (currentZoom<=4) {
+    mymap.removeLayer(circlebb);
+  }
+});
+
+
+
+var variable="t";
+var varoptions={"t":"2-m T",
+  "u":"10-m u wind",
+  "v":"10-m v wind",
+  "cei":"cloud ceiling",
+  "vis":"horizontal visibility",
+  "q":"2-m specific humidity",
+  "ps":"surface pressure",
+  "tca":"total cloud",
+  "hwv":"significant wave height",
+  "wst":"10-m wind speed"};
+var varlist=["t","u","v","wst","cei","vis","q","ps","tca","hwv"]
+var varunits={"t":"F",
+  "u":"kt",
+  "v":"kt",
+  "cei":"kft",
+  "vis":"miles",
+  "q":"g/kg",
+  "ps":"hPa",
+  "tca":"%",
+  "hwv":"ft",
+  "wst":"kt"};
+var varlabels={"t":"2-m temperature (F)",
+  "u":"10-m u wind (kt)",
+  "v":"10-m v wind (kt)",
+  "cei":"cloud ceiling (kft AGL)",
+  "vis":"horizontal visibility (mi)",
+  "q":"2-m specific humidity (g/kg)",
+  "ps":"surface pressure (hPa)",
+  "tca":"total cloud amount or sky cover (%)",
+  "hwv":"significant wave height (ft)",
+  "wst":"10-m wind speed (kt)"};
+
+var thisylabel=varlabels[variable];
+var units=varunits[variable];
+
+
+//var width = 850;
+//var height = 775;
+var margin = {top: 100, right: 10, bottom: 200, left: 50}
+    width = 850 - margin.right - margin.left,
+    height = 775 - margin.top - margin.bottom;
+
+var linesvg = d3.select("div#main").append("svg")
+    .attr("class","svgclass")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+   .append("g")
+    .attr("id","chartarea")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//gray background
+linesvg.append("rect")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("x",0)
+    .attr("y",0)
+    .attr("transform", "translate(-50,-100)")
+    .attr("fill","#ffffff");
+    
+linesvg.append("rect")
+    .attr("class", "grid-background")
+    .attr("width", width-60)
+    .attr("height", height);
+var x = d3.time.scale.utc().range([0,width-60]);
+var y = d3.scale.linear().range([height,0]);
+//define voronoi for mousing over lines
+var voronoi=d3.geom.voronoi()
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.value); })
+  .clipExtent([[0,0],[width-60, height]]);
+var xAxis = d3.svg.axis().scale(x).ticks(d3.time.hour.utc,12).tickSize(-height)
+var xAxis2 = d3.svg.axis().scale(x).ticks(d3.time.hour.utc,12).tickFormat(d3.time.format.utc("%HZ/%d"));
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left");
+var line = d3.svg.line()
+    .interpolate("linear")
+    .defined(function(d) {return !isNaN(d.value);})
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); });
+//update line function
+function toline() {
+  return d3.svg.line()
+    .interpolate("linear")
+    .defined(function(d) {return !isNaN(d.value);})
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { 
+         return y(d.value); });
+}
+function topline() {
+  return d3.svg.line()
+    .interpolate("linear")
+    .x(function(d) { return x(d.time); })
+    .y(function(d) { 
+         return y(d.precip); });
+}
+
+
+//initial file name
+var filename="station_"+stationname+".csv";
+
+var color=d3.scale.ordinal()
+    .range(["#303030","#1a79ff","#ff2424"])
+var legend=["#303030","#1a79ff","#ff2424"]
+var legendtext=["Observed","Analysis","Background","Ob used", "Ob not used"]
+var legcolors=["#5dc44f","#edff47"]
+
+var leg=linesvg.append("g")
+   .attr("class","legend")
+  .selectAll("rect")
+  .data(legend)
+  .enter().append("rect")
+  .attr("x",function(d,i) {return (i*125)+50 })
+  .attr("y",550)
+  .attr("fill",function(d) {return d})
+  .attr("width",15)
+  .attr("height",15)
+d3.select(".legend").selectAll("text")
+  .data(legendtext)
+  .enter().append("text")
+  .attr("x",function(d,i) {return (i*125)+75 })
+  .attr("y",562)
+  .attr("font-size",14)
+  .text(function(d) { return d });
+d3.select(".legend").selectAll("circle")
+  .data(legcolors)
+  .enter().append("circle")
+  .attr("cx",function(d,i) {return (i*125)+435 })
+  .attr("cy",557.5)
+  .attr("fill",function(d) {return d})
+  .attr("stroke","#303030")
+   .attr("r",7);
+
+var parseDate=d3.time.format.utc("%Y%m%d%H%M").parse;
+//var parseobsDate=d3.time.format.utc("%y%m%d/%H00").parse;
+var csvstring="YYYYMMDDHHMM"
+var nulls=false;
+function initial(filename) {
+var values=[]
+var pp = d3.csv(filename,function(error,data) {
+    if (error) {console.log("there was an error"); console.log(error); console.log(filename);};
+    color.domain(d3.keys(data[0]).filter(function(key) { return key == variable+"_analysis" || key== variable+"_ob" || key==variable+"_background";}));
+    var anals=d3.values(data);
+    data.forEach(function(d) {
+      d.date=parseDate(d[csvstring]);
+   });
+
+    var fields = color.domain().map(function(name) {
+      return {
+        name: name,
+        values: data.map(function(d) {
+          //return {city: name, value:+d[name],date: parseDate(d[csvstring])};
+          return {city: name, value:+d[name],date: parseDate(d[csvstring]),flag:d[variable+"_flag"]};
+      })
+    };
+   });
+  nulls=false;
+  for (i=0; i<fields.length;i++) {
+    for (j=0; j<fields[i].values.length;j++) {
+      if (variable=="t") {
+        fields[i].values[j].value=((fields[i].values[j].value-273.15)*1.8)+32.0
+      }
+      if (isNaN(fields[i].values[j].value)) {
+        nulls=true;
+      }
+    }
+  }
+  fields.move(0,2)
+  fields.move(0,1)
+  //var filedate=fields[fields.length-1].values[0].date;
+  //console.log(fields[0].values[fields[0].values.length-1]);
+  var filedate=fields[2].values[fields[2].values.length-1].date;
+  var sday=filedate.getUTCDate();
+  var smonthindex=filedate.getUTCMonth();
+  var syear=filedate.getUTCFullYear();
+  var shour=filedate.getUTCHours();
+  var strdate=("ending "+("0"+shour).slice(-2)+' UTC '+("0"+sday).slice(-2)+' '+monthNames[smonthindex]+' ' +syear);
+  imagedate=(syear+("0"+(smonthindex+1)).slice(-2)+("0"+sday).slice(-2)+("0"+shour).slice(-2));
+
+    x.domain(d3.extent(data,function(d) { return d.date; }));
+    y.domain([d3.min(fields,function(d) { return d3.min(d.values, function(v) { return v.value; })-1; }),d3.max(fields,function(d) { return d3.max(d.values, function(v) { return v.value; })+1; })]);
+  var perturbations = linesvg.append("g")
+    .attr("class","perturbations")
+   .selectAll("path")
+     .data(fields)
+   .enter().append("path")
+    .attr("stroke-width",3)
+    .attr("fill","none")
+    .attr("clip-path","url(#clip)")
+    .attr("d",function(d) {d.line=this; return line(d.values); })
+    .style("stroke", function(d) { return color(d.name); })
+    .style("stroke-width", function(d) { if (d.name=="mean") {
+      return 6;}
+      else {return 3;}
+      })
+    .call(line);
+
+   var circles=linesvg.append("g")
+    .attr("class","circles")
+    .selectAll("circle")
+      .data(fields[2].values)
+    .enter().append("circle")
+    .attr("class","dot")
+    .attr("r",5)
+    .attr("cx",function(d) {return x(d.date); })
+    .attr("stroke","#303030")
+    .attr("fill-opacity",function(d) {
+       if (isNaN(d.flag)) {
+         return 0.0 }
+       else { return 1.0 }
+       })
+    .attr("stroke-opacity",function(d) {
+       if (isNaN(d.flag)) {
+         return 0.0 }
+       else { return 1.0 }
+       })
+    //.attr("fill-opacity",1.0)
+    .attr("clip-path","url(#clip)")
+    .attr("stroke-width",1.0)
+    .style("fill",function(d) {
+         if (d.flag==1) {
+            return "#5dc44f"
+            }
+          else {
+             return "#edff47"}
+             }
+                )
+    .attr("cy",function(d) {return y(d.value); });
+
+   //for (i=0; i<fields.length;i++) {
+   //   fields[2-i].line.parentNode.appendChild(fields[2-i].line);
+   //   }
+    linesvg.append("g")
+      .attr("class", "grid")
+      .attr("transform", "translate(0," + height + ")")
+      .style("stroke-dasharray",("2,2"))
+      .call(xAxis)
+    linesvg.append("g")
+      .attr("class","x axis")
+      .attr("transform","translate(0," + height + ")")
+      .call(xAxis2)
+    .append("text")
+      .attr("x",335)
+      .attr("dy","3.25em")
+      .style("font-size","12px")
+      .text("Time (UTC)");
+    linesvg.append("g")
+      .attr("class","y axis")
+      .call(yAxis)
+    linesvg.append("g")
+        .attr("class","ylabel")
+        .append("text")
+        .attr("transform","rotate(-90)")
+        .attr("y",6)
+        .attr("dy",".9em")
+        .style("font-size","12px")
+        .style("text-anchor","end")
+        .text(thisylabel);
+    linesvg.append("g")
+      .attr("class","title")
+      .append("text")
+      //.attr("x", (width / 2))             
+      .attr("x", 375)             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("font-weight", "bold") 
+        .text("URMA traces for: " +stationname);
+    linesvg.append("g")
+      .attr("class","titlesub")
+      .append("text")
+      //.attr("x", (width / 2))             
+      .attr("x", 375)             
+        .attr("y", 25 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text(strdate);
+    var focus = linesvg.append("g")
+      .attr("transform","translate(-100,-100)")
+      .attr("class","focus");
+    focus.append("circle")
+      .attr("stroke","white")
+      .attr("stroke-width",1.5)
+      .attr("r",5.0);
+    focus.append("text")
+      .style("font-size","12px")
+      .attr("y",-10);
+    var voronoiGroup=linesvg.append("g")
+      .attr("class","voronoi");
+//console.log(fields);
+//remove coincident points for voronoi
+  var thisdata=d3.nest()
+          .key(function(d) { return x(d.date) + "," + y(d.value); })
+          .rollup(function(v) {
+                  //console.log(v[0]);
+                  return v[0]; })
+          .entries(d3.merge(fields.map(function(d) { return d.values; })))
+          .map(function(d) { return d.values; })
+  //console.log(thisdata);
+
+if (nulls) {
+  //var voronoiGroup=linesvg.selectAll(".voronoi").selectAll("path").exit().remove();
+  linesvg.selectAll(".voronoi").selectAll("path").remove();
+  var focus=d3.select(".focus");
+  focus.attr("transform", "translate(-100,-100)");
+  }
+else {
+tv=voronoiGroup.selectAll("path")
+        .data(voronoi(thisdata),function(d) {return d;})
+    tv.enter().append("path")
+      .attr("d", function(d) { return "M" + d.join("L") + "Z"; })
+      .datum(function(d) { return d.point; })
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
+}
+
+function mouseover(d) {
+   for (i=0; i<fields.length;i++) {
+       if (d.city==fields[i].name) {
+          var j=i;
+        }
+     }
+    var linef = d3.select(fields[j].line);
+     linef.style("stroke",color(d.city)).style("stroke-width",6)
+    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+    focus.select("text").text(Math.round(d.value*100)/100+" "+varunits[variable]).style("font-weight","bold");
+var sel = d3.select(this);
+  linef.moveToFront();
+    
+  }
+  function mouseout(d) {
+   for (i=0; i<fields.length;i++) {
+       if (d.city==fields[i].name) {
+          var j=i;
+         }
+      //fields[i].line.parentNode.appendChild(fields[i].line);
+      fields[2-i].line.parentNode.appendChild(fields[2-i].line);
+      }
+     var linef=d3.select(fields[j].line);
+          linef.style("stroke", function(d) { return color(d.name); })
+    .style("stroke-width", function(d) { if (d.name=="mean") {
+      return 6;}
+      else {return 3;}
+      })
+     
+    focus.attr("transform", "translate(-100,-100)");
+  }
+
+  });
+ }
+//filename = "https://emc.ncep.noaa.gov/mmb/jcarley/rtma_urma/prod_ts/urma/" + filename;
+filename = "../../../mmb/jcarley/rtma_urma/prod_ts/urma/" + filename;
+//console.log(filename);
+initial(filename);
+
+
+function updateData() {
+
+
+var pp = d3.csv(filename,function(error,data) {
+    if (error) {console.log("there was an error");};
+    color.domain(d3.keys(data[0]).filter(function(key) { return key == variable+"_analysis" || key== variable+"_ob" || key==variable+"_background";}));
+    var anals=d3.values(data);
+    data.forEach(function(d) {
+      d.date=parseDate(d[csvstring]);
+   });
+
+    var fields = color.domain().map(function(name) {
+      return {
+        name: name,
+        values: data.map(function(d) {
+          return {city: name, value:+d[name],date: parseDate(d[csvstring]),flag:d[variable+"_flag"]};
+      })
+    };
+   });
+  nulls=false;
+  for (i=0; i<fields.length;i++) {
+    for (j=0; j<fields[i].values.length;j++) {
+      if (variable=="t") {
+        fields[i].values[j].value=((fields[i].values[j].value-273.15)*1.8)+32.0
+      }
+      if (variable=="u" || variable=="v" || variable=="wst") {
+        fields[i].values[j].value=fields[i].values[j].value*1.94
+      }
+      if (variable=="cei") {
+        // convert from meters to kilofeet
+        fields[i].values[j].value=fields[i].values[j].value*3.28/1000.0
+      }
+      if (variable=="hwv") {
+        // convert from meters to feet
+        fields[i].values[j].value=fields[i].values[j].value*3.28
+      }
+      if (variable=="vis") {
+        // convert from meters to miles
+        fields[i].values[j].value=fields[i].values[j].value*0.000621371
+      }
+
+      if (isNaN(fields[i].values[j].value)) {
+        nulls=true
+       }
+    }
+  }
+  fields.move(0,2)
+  fields.move(0,1)
+  //var filedate=fields[fields.length-1].values[0].date;
+  //var filedate=fields[0].values[values.length-1].date;
+  var filedate=fields[2].values[fields[2].values.length-1].date;
+  var sday=filedate.getUTCDate();
+  var smonthindex=filedate.getUTCMonth();
+  var syear=filedate.getUTCFullYear();
+  var shour=filedate.getUTCHours();
+  var strdate=("ending "+("0"+shour).slice(-2)+' UTC '+("0"+sday).slice(-2)+' '+monthNames[smonthindex]+' ' +syear);
+  imagedate=(syear+("0"+(smonthindex+1)).slice(-2)+("0"+sday).slice(-2)+("0"+shour).slice(-2));
+
+    x.domain(d3.extent(data,function(d) { return d.date; }));
+    y.domain([d3.min(fields,function(d) { return d3.min(d.values, function(v) { return v.value; })-1; }),d3.max(fields,function(d) { return d3.max(d.values, function(v) { return v.value; })+1; })]);
+     var linesvg = d3.select("div#main");
+     var t0 = linesvg.transition().duration(1);
+     t0.selectAll(".x.axis").call(xAxis2);
+     t0.selectAll(".grid").call(xAxis);
+     var t1 = linesvg.transition().duration(transitiontime);
+     t1.selectAll(".ylabel").selectAll("text").text(varlabels[variable]);
+     t1.selectAll(".y.axis").call(yAxis);
+     linesvg.selectAll("path")
+     //transition lines for new data
+     //console.log(perts);
+     var dp = linesvg.selectAll(".perturbations").selectAll("path")
+        .data(fields);
+       dp.exit().remove();
+       dp.enter().append("path")
+            .attr("clip-path","url(#clip)")
+            .attr("fill","none")
+            .attr("stroke-width",3)
+            .attr("clip-path","url(#clip)")
+            .attr("d",function(d) {d.line=this; return line(d.values); })
+            //.style("stroke", function(d) { return color(d.name); })
+            .style("stroke", function(d) { return color(d.name); })
+            .style("stroke-width", function(d) { if (d.name=="mean") {
+              return 6;}
+              else {return 3;}
+              });
+     var transition = dp.transition()
+          .duration(transitiontime)
+            .attr("clip-path","url(#clip)")
+            .attr("class","line")
+            .attr("d",function(d) { d.line=this; return toline()(d.values); })
+            //.style("stroke", function(d) { return color(d.name); })
+            .style("stroke", function(d) { return color(d.name); })
+            .style("stroke-width", function(d) { if (d.name=="mean") {
+              return 6;}
+              else {return 3;}
+              });
+   var thesecircles=linesvg.select(".circles").selectAll("circle")
+      .data(fields[2].values);
+   thesecircles.exit().remove();
+   thesecircles
+     .attr("cx",function(d) {return x(d.date); })
+     .attr("cy",function(d) {return y(d.value); })
+    .attr("stroke-opacity",0.0)
+    .attr("fill-opacity",0.0)
+    .attr("stroke-width",1.0)
+    .style("fill",function(d) {
+         if (d.flag==1) {
+            return "#5dc44f"
+            }
+          else {
+             return "#edff47"}
+             }
+                );
+   thesecircles.enter().append("circle")
+     .attr("cx",function(d) {console.log(d);return x(d.date); })
+     .attr("cy",function(d) {return y(d.value); })
+    .attr("r",5)
+    .attr("stroke","#303030")
+    .attr("stroke-opacity",0.0)
+    .attr("fill-opacity",0.0)
+    .attr("stroke-width",1.0)
+    .style("fill",function(d) {
+         if (d.flag==1) {
+            return "#5dc44f"
+            }
+          else {
+             return "#edff47"}
+             }
+                );
+   
+     var ctransition = thesecircles.transition()
+          .duration(transitiontime)
+    .attr("fill-opacity",function(d) {
+       if (isNaN(d.flag)) {
+         return 0.0 }
+       else { return 1.0 }
+       })
+    .attr("stroke-opacity",function(d) {
+       if (isNaN(d.flag)) {
+         return 0.0 }
+       else { return 1.0 }
+       });
+
+  //console.log(thesecircles);
+      //.data(fields[0].values,function(d) {return d; });
+  // thesecircles.exit().remove(); 
+  // thesecircles
+  //  .attr("cx",function(d) {return x(d.date); })
+  //  .attr("cy",function(d) {return y(d.value); })
+  //  .attr("stroke-opacity",0.0)
+  //  .attr("fill-opacity",0.0)
+  //  .style("fill",function(d) {
+  //       if (d.flag==1) {
+  //          return "#5dc44f"
+  //          }
+  //        else {
+  //           return "#edff47"}
+  //           }
+  //              );
+  //  thesecircles.enter().append("circle")
+  //  .attr("class","dot")
+  //  .attr("r",5)
+  //  .attr("cx",function(d) {return x(d.date); })
+  //  .attr("stroke","#303030")
+  //  .attr("stroke-opacity",0.0)
+  //  .attr("fill-opacity",0.0)
+  //  .attr("stroke-width",1.0)
+  //  .style("fill",function(d) {
+  //       if (d.flag==1) {
+  //          return "#5dc44f"
+  //          }
+  //        else {
+  //           return "#edff47"}
+  //           }
+  //              )
+  //  .attr("cy",function(d) {return y(d.value); });
+  //   var ctransition = thesecircles.transition()
+  //        .duration(transitiontime)
+  //  .attr("fill-opacity",function(d) {
+  //     if (isNaN(d.flag)) {
+  //       return 0.0 }
+  //     else { return 1.0 }
+  //     })
+  //  .attr("stroke-opacity",function(d) {
+  //     if (isNaN(d.flag)) {
+  //       return 0.0 }
+  //     else { return 1.0 }
+  //     });
+
+
+ //  for (i=0; i<fields.length;i++) {
+ //     fields[2-i].line.parentNode.appendChild(fields[2-i].line);
+ //     }
+    var newname=linesvg.selectAll(".title").selectAll("text")
+        //.text("EMC's GEFS plumes for: " +stationname);
+        .text("URMA traces for: " +stationname);
+    var newtitle=linesvg.selectAll(".titlesub").selectAll("text")
+        .text(strdate);
+    var focus=d3.select(".focus");
+  var thisdata=d3.nest()
+          .key(function(d) { return x(d.date) + "," + y(d.value); })
+          .rollup(function(v) {
+                  //console.log(v[0]);
+                  return v[0]; })
+          .entries(d3.merge(fields.map(function(d) { return d.values; })))
+          .map(function(d) { return d.values; })
+if (nulls) {
+  linesvg.selectAll(".voronoi").selectAll("path").remove();
+  var focus=d3.select(".focus");
+  focus.attr("transform", "translate(-100,-100)");
+  }
+else {
+var voronoiGroup=linesvg.selectAll(".voronoi").selectAll("path")
+        .data(voronoi(thisdata),function(d) {return d;})
+    voronoiGroup.exit().remove();
+    voronoiGroup.enter().append("path")
+      .attr("d", function(d) {  return "M" + d.join("L") + "Z"; })
+      .datum(function(d) {  return d.point; })
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
+}
+function mouseover(d) {
+   for (i=0; i<fields.length;i++) {
+       if (d.city==fields[i].name) {
+          var j=i;
+        }
+     }
+    var linef = d3.select(fields[j].line);
+     linef.style("stroke",color(d.city)).style("stroke-width",6)
+    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+    focus.select("text").text(Math.round(d.value*100)/100+" "+varunits[variable]).style("font-weight","bold");
+var sel = d3.select(this);
+  linef.moveToFront();
+    
+  }
+  function mouseout(d) {
+   for (i=0; i<fields.length;i++) {
+       if (d.city==fields[i].name) {
+          var j=i;
+         }
+      fields[i].line.parentNode.appendChild(fields[i].line);
+      }
+     var linef=d3.select(fields[j].line);
+          linef.style("stroke", function(d) { return color(d.name); })
+    .style("stroke-width", function(d) { if (d.name=="mean") {
+      return 6;}
+      else {return 3;}
+      })
+     
+    focus.attr("transform", "translate(-100,-100)");
+  }
+
+
+})
+}
+
+d3.select("#download").on("click", function(){
+  d3.select("body").append("canvas")
+    .attr("id","canvas");
+
+      source=downloadSVG("svgclass");
+
+
+    canvg('canvas',source.source[0]);
+    binaryblob();
+//If IE construct different blob
+if (navigator.appVersion.toString().indexOf('.NET') > 0) {
+        var blob=canvas.msToBlob();
+        window.navigator.msSaveBlob(blob, stationname+"_"+imagedate+".png");
+  }
+else
+{
+    var a = document.createElement("a");
+	  a.download = stationname+"_"+imagedate+".png";
+	  a.href = canvas.toDataURL("image/png");
+          var event=new MouseEvent('click');
+	  a.dispatchEvent(event)
+}
+d3.select("canvas").remove()
+//don't think I event need this becasue dataView is never even defined so what does it do
+function binaryblob(){
+	var byteString = atob(document.querySelector("canvas").toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); 
+	var ab = new ArrayBuffer(byteString.length);
+	var ia = new Uint8Array(ab);
+	for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    var dataView = new DataView(ab);
+    try {
+	blob = new Blob([dataView], {type: "image/png"});
+    }
+    catch(e) {
+           window.BlobBuilder = window.BlobBuilder ||
+                                window.WebKitBlobBuilder ||
+                                window.MozBlobBuilder ||
+                                window.MSBlobBuilder;
+           if (window.BlobBuilder) {
+               var bb = new BlobBuilder();
+               bb.append(dataView);
+               blob = bb.getBlob("image/png");
+           }
+      }
+
+
+	var DOMURL = self.URL || self.webkitURL || self;
+	newurl = DOMURL.createObjectURL(blob);
+
+}
+});
+var droppedimage1=false;
+function showdropimage1() {
+    afterdropimage1.attr("class","select-styled active");
+    uldropimage1.style("display","block")
+    droppedimage1=true;
+}
+function hidedropimage1() {
+    droppedimage1=false;
+    uldropimage1.style("display","none")
+    afterdropimage1.attr("class","select-styled");
+}
+function changedropimage1() {
+  if (!droppedimage1) {
+    showdropimage1()
+  }
+  else {
+    hidedropimage1()
+  }
+}
+
+var afterdropimage1=d3.select("#afterdropimage1")
+  .text(varoptions[variable])
+  .on("mousedown",changedropimage1);
+afterdropimage1.property('value',variable);
+var uldropimage1=d3.select("#divdropimage1").append("ul")
+  .attr("class","uldropimage");
+uldropimage1.selectAll("li")
+  .data(varlist)
+  .enter().append("li")
+    .attr("class","mainli")
+    .text(function(d) { return varoptions[d]; })
+    .attr("id",function(d) { return "MDimage1"+String(d);});
+uldropimage1.style("display","none");
+var subdropimage1click="";
+uldropimage1.selectAll(".mainli").on("click",function(d) {
+  subdropimage1click=d;
+  variable=d;
+  hidedropimage1()
+  updateData()
+var afterdropimage1=d3.select("#afterdropimage1")
+  .text(varoptions[variable]);
+});
+transitiontime=750;
+
+</script> 

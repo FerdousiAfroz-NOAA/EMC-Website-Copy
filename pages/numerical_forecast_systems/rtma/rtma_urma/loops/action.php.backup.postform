@@ -1,0 +1,34 @@
+<?php
+
+//if (isset($_POST['data']) ) {
+    $utc = $_POST['utc'];
+    $data = json_decode($_POST['data']);
+    $listFile = $data->{'paramName'};
+    $filename = "";
+    /*echo 'Hellow World\n';
+    echo count($listFile);*/
+    var_dump($_GET['data']);
+    
+    //$listFile = explode("," , $data->{'paramName'});
+    //echo json_encode(array('success' => 1, 'results'=> $listFile));
+    for($i = 0; $i < count($listFile); $i++) { 
+       
+       $searchValue = $utc.'/';
+       $replaceValue = $utc.'/pan_';
+       $filename = str_replace($searchValue, $replaceValue,  $listFile[i]);
+       //$basePath = str_replace('//www.emc.ncep.noaa.gov', '/home/www/emc/htdocs', $filename);
+      
+       //echo UR_exists($listFile[i]) ;
+      if (UR_exists($listFile[i]) === false) {
+         $listFile[i] = $filename;
+         echo "The file $filename does not exist";
+      } 
+    }
+    echo json_encode(array('success' => 1, 'results'=> $listFile));
+//}
+
+function UR_exists($url){
+   $headers=get_headers($url);
+   return stripos($headers[0],"200 OK")?true:false;
+}
+?>

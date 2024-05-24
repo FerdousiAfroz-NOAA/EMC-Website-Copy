@@ -1,0 +1,32 @@
+body{
+    background-color:#00cec9;
+    color: white
+
+}
+
+
+
+#loginForm{
+    margin-left: 43em;
+    margin-top: 8em;
+    padding: 13px;
+}
+
+    
+.form-control{
+    width: 20em  !important;
+        margin-right: 1em;
+    }
+
+
+    .form-group{
+        margin-top: 4em;
+    }
+
+    #submitBtn{
+        margin-top: 3em;
+        padding: 1em;
+        width: 5em;
+        position: relative;
+        line-height: 1px;  
+      }

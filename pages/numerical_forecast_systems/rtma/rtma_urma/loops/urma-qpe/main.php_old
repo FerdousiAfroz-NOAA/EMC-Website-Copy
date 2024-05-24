@@ -1,0 +1,72 @@
+<TITLE>Precipitation URMA</TITLE>
+<CENTER>
+<H1>Precipitation URMA</H1>
+<H2>UnRestricted Mesoscale Analysis</H2>
+Last update: 16 Oct 2018
+</CENTER>
+6-hourly multi-sensor precipitation estimates received from the 12 ConUS River 
+Forecast Centers are mosaicked into a national product (the 
+<a href="http://www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/stage4/">
+NCEP Stage IV</a>) 
+and remapped to the ConUS and Northwest NDFD grids. 
+<P>
+Operational implementation: 28 Jan 2014.  Availale on the NWS SBN (see WMO
+header info below). 
+<P>
+On NCEP FTP: <a href="ftp://ftp.ncep.noaa.gov/pub/data/nccf/com/urma/prod/">
+                 ftp.ncep.noaa.gov/pub/data/nccf/com/urma/prod/</a>
+<br>
+On NCEP NOMADS: 
+             <a href="http://nomads.ncep.noaa.gov/pub/data/nccf/com/urma/prod/">
+                 nomads.ncep.noaa.gov/pub/data/nccf/com/urma/prod/</a>
+<br>
+Parallel data during NCO parallel run:
+      <a href="http://para.nomads.ncep.noaa.gov/pub/data/nccf/com/urma/para/">
+                      para.nomads.ncep.noaa.gov/pub/data/nccf/com/urma/para/</a>
+<P>
+On the 
+  <a href="http://www.nco.ncep.noaa.gov/pmb/docs/on388/tableb.html#GRID184">
+    ConUS grid:</a><BR>
+File name: pcpurma_g184.<I>yyyymmddhh</I>.06h<BR>
+WMO header: LEQA98 KWBR<BR>
+<P>
+On the 
+  <a href="http://www.nco.ncep.noaa.gov/pmb/docs/on388/tableb.html#GRID188">
+    NWRFC grid:</a><BR>
+File name: pcpurma_g188.<I>yyyymmddhh</I>.06h<BR>
+WMO header: LERA98 KWBR<BR>
+<HR>
+<a href="problem_hours.html">Problem hours due to missing data</A>
+<HR>
+<B>History</B><br>
+28 Jan 2014: operational implementation.<BR>
+14 Apr 2015: upgrade
+<UL>
+  <LI> Mosaics re-made 1/3/5/7 days later
+  <LI> Sources of 6-hourly mosaic QPE for Stage IV/URMA: currently the 6-hourly
+       Stage IV is a mosaic of the 6-hourly QPEs from the 12 ConUS RFCs.  
+       For this release, we first produce 6-hourly totals from the eight 
+       Eastern/Central RFCs’ hourly QPEs, then combine these 6-hourly totals 
+       with the four Western RFCs’ (NWRFC, CNRFC, CBRFC, MBRFC) 6-hourly QPEs 
+       to arrive a 6-hourly ConUS QPE.  
+  <LI> <a href="http://www.nws.noaa.gov/os/notification/tin15-08rtma_urma.htm">
+       Technical Implementation Notice</a>
+  <LI> <a href="pcpurma_change_summary.pdf">
+       Additional info/examples of impact</a>
+</UL>
+<font color=red>Planned Dec 2015 upgrade:</font> please see
+   <a href="http://www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/#Dec2015Upgrade">www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/#Dec2015Upgrade</a> for proposed list of changes, links to parallel run output, and new RFC domain mask<br>
+<HR>
+<P>
+Developer's parallel run output, Apr 2014 - Mar 2015:
+<UL>
+  <LI><a href="ftp://ftp.emc.ncep.noaa.gov/mmb/precip/st4.test/">
+       Mosaics remade 1/3/5/7-days later</a>
+  <LI><a href=
+           "http://www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/stage4/st3log.para/">
+       Summary of data receipt time</a>
+</UL>
+<center>
+<I>Ying[dot]Lin[at]noaa[dot]gov</I></A>
+</center>
+

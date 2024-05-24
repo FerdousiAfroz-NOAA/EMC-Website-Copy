@@ -1,0 +1,563 @@
+/********************************
+* Contain the header styles.
+*********************************/
+
+
+.noaa-site-info {
+    width: 250px;
+    padding-left: 15px;
+    padding-top: 5px;
+    
+}
+.noaa-site-info a.site-name{
+    line-height: 1.10526;
+    font-size: 11px;
+    font-weight: 700;
+    
+	
+}
+
+.noaa-site-info a.site-slogan{
+    background-color: transparent;
+    font-size: 8px;
+}
+
+.noaa-site-info a {
+
+    display: block;
+    text-decoration: none;
+    font-family: "Helvetica Neue",helvetica,Arial,sans-serif;
+
+}
+
+.noaa-logo a {
+
+    display: block;
+    text-decoration: none;
+    font-family: "Helvetica Neue",helvetica,Arial,sans-serif;
+    padding-left: 20px;
+
+}
+
+.nav-header-item{
+    color:white;
+}
+
+.menu-links{
+	background-color: #00467f;
+}
+
+.container-styles{
+    margin-left: 7rem;
+}
+
+
+.header-content{
+	/*position: relative;*/
+	width: 100%; 
+}
+
+/*
+ * Overriding the bootstrap padding since bootstraps automatically adds 15px of padding.
+ */
+.container-fluid { 
+  padding: 0px;
+}
+
+
+.navbar-brand {
+  display: inline-block;
+}
+
+.site-brand-name{
+	padding-left: 20px;
+}
+
+/*.navbar-brand img {
+  height:85%;
+  width:85%;
+}*/
+
+/* Center on mobile*/
+@media only screen and (max-width : 768px){
+	.navbar-brand {
+	  padding: 0px;
+	  font-size: 12px;
+	}
+	.navbar-brand>img {
+	  height: 70%;
+	  width: 70%;
+	}
+	
+	.header-content{
+	 position: relative;
+	 width: 100%; 
+	}
+}
+
+
+
+.search-wrap {
+	position: aboslute;
+	
+	/*transform: translate(-50%, -50%);*/
+	
+}
+
+.search-wrapper.active .input-holder .search-input {
+    opacity: 1;
+    transform: translate(0, 10px);
+}
+.search-wrapper .search-icon {
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50px;
+    background: #0099d8;
+	color: #FFF;
+    padding:0px;
+    outline:none;
+    position: relative;
+    z-index: 2;
+    float:right;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.search-icon {
+	background: #0099d8;
+}
+
+.search-icon:hover {
+	background-color: #0099d8;
+	color: white;
+	opacity: 0.8;
+}
+
+.result-container{
+	position: absolute;
+	z-index: 300;
+	background:  #0099d8;
+	color: white;
+	padding: 5px;
+}
+.result-container ul{
+	list-style-type: none;
+}
+
+.result-container ul li{
+	padding: 2px;
+}
+
+.result-container ul li a{
+	color: white;
+}
+
+ @media screen and (max-width: 560px) { .search-wrapper.active .input-holder {width:200px;}}
+
+/**************** 
+ Navigation Menu
+ *****************/
+
+
+ .autocomplete-suggestions {
+    border: 1px solid darkgray;
+    background: white;
+    overflow: auto;
+}
+
+
+.menu_main_nav li a {
+    margin-left: 5px;
+    font-family: "Montserrat", sans-serif;
+	color: white;
+    text-decoration: none;
+}
+
+
+
+.local-forecast-label{
+pointer-events: none
+}
+
+.local-forecast-input{
+    outline:none;
+    color:black;
+    border-radius:2px;
+    padding:0.7rem;  
+    height:0;
+    width:8rem;
+    display:inline-block;
+}
+
+.local-forecast-btn{
+ font-weight: 500;
+    border-radius: 0.2em;
+    /* padding: 0.2em 0.3em; */
+    position: relative;
+    padding: 0em 0.3em;
+    bottom: 0.1rem;
+}
+
+
+.menu_main_nav li a:hover {
+	/* color: skyblue; */
+	/*background-color: #112e51;*/
+	/* background-color:skyblue; */
+}
+
+
+#main-nav{
+    margin-left: 8rem;
+}
+
+@media (min-width: 979px) {
+	.dropdown:hover .dropdown-menu {
+		display: block;
+		margin-top: 0px;
+		background-color: #0099d8; 
+		color: #fff; 
+	 }
+}
+ 
+.nav-item .dropdown-menu li a {
+	/* background-color: red; */
+	 /* color: red;  */
+	/* margin-top: -10px; */
+ }
+
+.top_info_links{
+	list-style-type: none;
+    top:0;
+	/*margin-left: 75%;*/
+	font-family: "Montserrat", sans-serif;
+    font-size: 1.03rem;
+    /* line-height: 1em; */
+    font-weight: 600;
+}
+
+.top_info_links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.top_info_links li a{
+    float: left;
+	padding: 15px 15px;
+}
+
+
+.navbar .navbar-toggler .icon-bar {
+  background: white;
+  
+}
+.navbar .navbar-toggler{
+	border-color: #3498DB;
+}
+
+
+.buttonCircleBase{
+	background-color: #0099d8;
+    border: none;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	border-radius: 50%;
+}
+
+.buttonCircleBase img{
+	height: 50px;
+	width: 50px;
+
+	}
+
+.nav-link-margin{
+    margin-top:7px;
+}
+ 
+.nav-link-margin a{
+    margin-left:2px;
+}
+
+.weather-widget-form {
+    display: table;
+    clear: both;
+    overflow: hidden;
+}
+
+.weather-widget-form:not(.has-weather) {
+    background-image: none !important;
+}
+.weather-widget-form {
+    text-align: left;
+	padding: 15px;
+	background-color: white;
+	color:black;
+}
+
+
+
+@font-face {
+    font-family: 'weather';
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot');
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.ttf') format('truetype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.weatherLnk{
+	padding:none;
+}
+
+.icon-0:after { content: ":"; }
+.icon-1:after { content: "p"; }
+.icon-2:after { content: "S"; }
+.icon-3:after { content: "Q"; }
+.icon-4:after { content: "S"; }
+.icon-5:after { content: "W"; }
+.icon-6:after { content: "W"; }
+.icon-7:after { content: "W"; }
+.icon-8:after { content: "W"; }
+.icon-9:after { content: "I"; }
+.icon-10:after { content: "W"; }
+.icon-11:after { content: "I"; }
+.icon-12:after { content: "I"; }
+.icon-13:after { content: "I"; }
+.icon-14:after { content: "I"; }
+.icon-15:after { content: "W"; }
+.icon-16:after { content: "I"; }
+.icon-17:after { content: "W"; }
+.icon-18:after { content: "U"; }
+.icon-19:after { content: "Z"; }
+.icon-20:after { content: "Z"; }
+.icon-21:after { content: "Z"; }
+.icon-22:after { content: "Z"; }
+.icon-23:after { content: "Z"; }
+.icon-24:after { content: "E"; }
+.icon-25:after { content: "E"; }
+.icon-26:after { content: "3"; }
+.icon-27:after { content: "a"; }
+.icon-28:after { content: "A"; }
+.icon-29:after { content: "a"; }
+.icon-30:after { content: "A"; }
+.icon-31:after { content: "6"; }
+.icon-32:after { content: "1"; }
+.icon-33:after { content: "6"; }
+.icon-34:after { content: "1"; }
+.icon-35:after { content: "W"; }
+.icon-36:after { content: "1"; }
+.icon-37:after { content: "S"; }
+.icon-38:after { content: "S"; }
+.icon-39:after { content: "S"; }
+.icon-40:after { content: "M"; }
+.icon-41:after { content: "W"; }
+.icon-42:after { content: "I"; }
+.icon-43:after { content: "W"; }
+.icon-44:after { content: "a"; }
+.icon-45:after { content: "S"; }
+.icon-46:after { content: "U"; }
+.icon-47:after { content: "S"; }
+
+.navbar {
+	border-radius: 0px !important;
+	margin-bottom: 0px !important;
+}
+#boxes-box-header_logo a.logo, #boxes-box-header_logo_blind a.logo {
+
+    margin: 0px 20px 5px;
+    float: left;
+    width: 70px;
+    height: 70px;
+
+}
+#boxes-box-header_logo a, #boxes-box-header_logo_blind a {
+
+    display: block;
+    text-decoration: none;
+    font-family: "Helvetica Neue", helvetica, Arial, sans-serif;
+
+}
+a {
+    color: #0099d8;
+
+}
+
+#boxes-box-header_logo a, #boxes-box-header_logo_blind a {
+
+    display: block;
+    text-decoration: none;
+    font-family: "Helvetica Neue", helvetica, Arial, sans-serif;
+
+}
+a.site-name {
+
+    padding-top: .275em;
+    line-height: 1.10526;
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: #0a4595;
+    width: 500px;
+
+}
+
+#boxes-box-header_logo a.site-slogan, #boxes-box-header_logo_blind a.site-slogan {
+
+    font-size: .83rem;
+    line-height: .8rem;
+    font-weight: 600;
+    color: 
+
+    #666464;
+    width: 500px;
+
+}
+#boxes-box-header_logo a, #boxes-box-header_logo_blind a {
+
+    display: block;
+    text-decoration: none;
+    font-family: "Helvetica Neue", helvetica, Arial, sans-serif;
+
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color:white;
+}
+
+
+
+.navbar-nos {
+	/* color:white; */
+	background-color: #00467f;
+ 	/*background-color: #0099d8;*/
+}
+
+#local-forecast-form a{
+    color:white;
+}
+
+
+.navbar-search{
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	overflow: visible;
+	padding: 0;
+	float: right;
+	
+}
+
+.navbar-dark .navbar-toggler {
+    color: 
+rgba(255,255,255,.5);
+border-color:
+    rgba(255,255,255,.1);
+}
+.navbar-toggler {
+
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+    border-radius: .25rem;
+
+}
+.navbar-toggler-icon {
+
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    content: "";
+    background: no-repeat center center;
+        background-image: none;
+        background-size: auto;
+    background-size: 100% 100%;
+
+}
+
+.navbar-brand-logo {
+  display: flex;
+  float: left;
+  padding-bottom: 10px;
+ 
+}
+.usa-header-logo-img{
+	float:left;
+}
+
+#local-forecast-form{
+    margin-left:6rem;
+    line-height: 3rem;
+}
+
+.usa-header-logo-img .site-title{
+	margin-top: -80px;
+    margin-left: 90px;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #337ab7 !important;
+	border-color: #337ab7;
+    color: white;
+}
+
+.weatherList li {
+	color: black;
+	background-color: white;
+}
+.weatherList li a {
+	color: black !important;
+	background-color: transparent !important;
+	margin-left: -15px;
+}
+.weatherList li a:hover {
+	background-color: transparent !important;
+}
+
+.weatherCircleBase {
+    border-radius: 50%;
+    background: #87CEFA;
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.findWeatherIndicatorIcon {
+    border-radius: 50%;
+    background:#87CEFA;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: middle;
+	position: relative;
+	margin-top: -10px;
+}
+
+.findWeatherIndicatorIcon img {
+	height: 49px;
+	width: 49px;
+	top: 0;
+	bottom: 0;
+}

@@ -1,0 +1,906 @@
+<img src="https://www.emc.ncep.noaa.gov/emc/images/GEFS-Aero_Australia_fires.png">
+<p>
+<img src="https://www.emc.ncep.noaa.gov/emc/pages/disclaimer/disclaimer_small.png">
+<p>
+<div class="c23 c52">
+	<p class="c24 c15 c26">
+		<span class="c11 c4"/>
+	</p>
+	<h3>BACKGROUND</h3>
+	<p class="c15 c24">
+		<span class="c4">The NEMS coupled app (GFS-CHEM) includes two components: The NCEP Global Forecast System </span>
+		<span class="c20 c29">
+			<a class="c19" href="https://www.google.com/url?q=https://www.emc.ncep.noaa.gov/users/Eric.Rogers/documents/FV3GFS_OD_Briefs_10-01-18_4-1-2019.pdf&amp;sa=D&amp;ust=1591369356112000">(</a>
+		</span>
+		<span class="c20 c29">
+			<a class="c19" href="https://www.google.com/url?q=https://www.emc.ncep.noaa.gov/users/Eric.Rogers/documents/FV3GFS_OD_Briefs_10-01-18_4-1-2019.pdf&amp;sa=D&amp;ust=1591369356112000">GFS V15</a>
+		</span>
+		<span class="c4">) and GSDCHEM. &nbsp;GSDCHEM is a National Unified Operational Prediction Capability (</span>
+		<span class="c4">NUOPC</span>
+		<span class="c4">) based chemistry component developed to replace the current NEMS GFS Aerosol Component (NGAC at 1x1&deg;, &nbsp;</span>
+		<span class="c6 c4">Wang, et al. 2018) GSDCHEM includes the WRF-Chem (Grell, et al. 2005) chem_driver with updates for consistency with the NASA Goddard Operational Chemistry and Aerosol Radiation and Transport (GOCART; Chin, et al., 2007) version. The chemistry and aerosol modules used for GFS-CHEM include simple sulfur chemistry, hydrophobic and hydrophilic black and organic carbon, and a 5-bin sea salt module. Additionally, included is the FENGSHA (Dong, et al. 2016) 5-bin dust module, wildfires modeling using Fire Radiative Power (FRP) and smoke emissions from &nbsp;the NESDIS Global Biomass Burning Emissions Product (GBBEPx; Zhang, et al., 2014; Zhang, et al., 2012). Plume rise modeling is done with a 1-d cloud model (Grell et al, 2011), and, optionally, volcanic ash emissions are also included. The global anthropogenic emission is from the Community Emissions Data System (CEDS) based on 2014 inventory. Tracers are transported by the dynamics as well as the GFS physics (GFS PBL and Simple Arakowa Shubert (SAS) deep and shallow convection parameterization). Subgrid scale wet scavenging and transport is done inside the two SAS routines.</span>
+	</p>
+	<p class="c24 c15 c26">
+		<span class="c6 c4"/>
+	</p>
+	<p class="c24 c15">
+		<span class="c6 c4">The system runs at FV3 cube sphere C384L64 resolution (~25 km) in the NCEP Global Ensemble Forecast System (GEFS) production suite, but with GOCART simple aerosol chemistry (20 species) run to 120 forecast hours four times per day. &nbsp;GFS-Chem currently requires 40 nodes to run 5 days in 37 cpu minutes on the Dell Phase III systems.</span>
+	</p>
+	<p class="c24 c15 c26">
+		<span class="c6 c4"/>
+	</p>
+	<p class="c24 c15">
+		<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 468.00px;">
+			<img alt="" src="gefs-aero/images/image1.png" style="width: 624.00px; height: 468.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+			</span>
+			<sup>
+				<a href="#cmnt1" id="cmnt_ref1">[a]</a>
+			</sup>
+			<sup>
+				<a href="#cmnt2" id="cmnt_ref2">[b]</a>
+			</sup>
+			<sup>
+				<a href="#cmnt3" id="cmnt_ref3">[c]</a>
+			</sup>
+		</p>
+		<p class="c24 c15 c26">
+			<span class="c6 c4"/>
+		</p>
+		<p class="c24 c15">
+			<span class="c6 c4">Technically, coupling occurs two-way, as mixing ratios of chemical tracers are exchanged between FV3GFS and GSDCHEM at each coupling step to be advected by FV3 dynamical core. However, at this point coupling is considered to be only one way in this milestone from a scientific standpoint, since feedback to the meteorology is not yet activated.</span>
+		</p>
+		<p class="c17 c15">
+			<span class="c4 c6">At each coupling time step, a complete set of fields is provided by FV3GFS to GSDCHEM, which includes them in chemistry computations and returns updated mixing ratios for the chemical tracers to FV3GFS. Tracer concentrations and some diagnostic chemical output are included in FV3GFS history files.</span>
+		</p>
+		<p class="c17 c15">
+			<span class="c4">All 2D and 3D fields exported by FV3GFS are initialized using baseline input data provided for regression testing. FV3 data structures (IPD_Data) corresponding to these fields are shown </span>
+			<span class="c4 c23">in Table 1</span>
+			<span class="c6 c4">. 19 chemical tracers are defined in the FV3GFS input field_table file with a spatially constant non-zero value at the surface. These tracers are also added to the diag_table file to be included in FV3GFS dynamics history files.</span>
+		</p>
+		<p class="c17 c15 c26">
+			<span class="c6 c4"/>
+		</p>
+		<p class="c17 c15 c26">
+			<span class="c6 c4"/>
+		</p>
+		<p class="c15 c17">
+			<span class="c6 c4">More information is available from the following links:</span>
+		</p>
+		<ul class="c28 lst-kix_y0u2o9d9waoa-0 start">
+			<li class="c32 c33 c15">
+				<span class="c20">
+					<a class="c19" href="https://www.emc.ncep.noaa.gov/gc_wmb/parthab/NCO-GEFSAerosol/html/fv3_aod_png.html#picture"><FONT SIZE=4>Operational GEFS-Aerosol forecast guidance graphics</FONT></a>
+				</span>
+			</li>
+			<li class="c32 c33 c15">
+				<span class="c20">
+					<FONT SIZE=4>Operational GEFS-Aerosol gridded products via the <a class="c19" href="https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod">NCEP NOMADS server</a> or the <a href="https://ftp.ncep.noaa.gov/data/nccf/com/gens/prod">NCEP FTP server</a>.</FONT>
+				</span>
+			</li>
+			<li class="c32 c33 c15">
+				<span class="c20">
+					<a class="c19" href="https://www.google.com/url?q=https://docs.google.com/presentation/d/19RUwJFknQaY6lr8Vthn-HAGpP4MqBS9sUjM4HdxIzZA/edit%23slide%3Did.p1&amp;sa=D&amp;ust=1591369356115000">Partha Bhatacharjee, NCEP/EMC &nbsp;AMS 2020 presentation</a>
+				</span>
+			</li>
+			<li class="c32 c33 c15">
+				<span class="c20">
+					<a class="c19" href="https://www.google.com/url?q=https://docs.google.com/presentation/d/1XUv09vvqxgF14VlEVx2SM_eOJijDZGfB/edit%23slide%3Did.p14&amp;sa=D&amp;ust=1591369356116000">Rick Saylor&rsquo;s, NOAA/ARL, &nbsp;ICAP 2019 presentation</a>
+				</span>
+			</li>
+			<li class="c32 c33 c15">
+				<span class="c20">
+					<a class="c19" href="https://www.google.com/url?q=https://docs.google.com/document/d/1NZko1NWWltioCL6cggTaJ83TbEwlupO4y3M5bTqyLR4/edit?userstoinvite%3Draffaele.montuoro@noaa.gov%26ts%3D5d28fecf%26actionButton%3D1&amp;sa=D&amp;ust=1591369356116000">GEFS-Aerosols development history</a>
+				</span>
+				<span class="c6 c46">&nbsp;</span>
+			</li>
+			<li class="c27 c33 c15">
+				<span class="c20">
+					<a class="c19" href="https://www.google.com/url?q=https://fim.noaa.gov/FV3chem/&amp;sa=D&amp;ust=1591369356116000">GFS-Aerosols Real-time Forecasts</a>
+				</span>
+			</li>
+			<li class="c27 c33 c15">
+				<span class="c20">
+					<a class="c19" href="https://www.google.com/url?q=https://www.emc.ncep.noaa.gov/gc_wmb/parthab/GEFS-Aerosol/html/fv3_mongridstat_png.html&amp;sa=D&amp;ust=1591369356117000">GFS-Aerosol evaluation web graphics</a>
+				</span>
+			</li>
+		</ul>
+		<p class="c32 c15 c26">
+			<span class="c8"/>
+		</p>
+		<p class="c15 c32">
+			<span class="c56">Global Aerosol modeling community users</span>
+			<span class="c10">: </span>
+		</p>
+		<ul class="c28 lst-kix_x2mharko5i6l-0 start">
+			<li class="c13">
+				<span class="c39">
+					<a class="c19" href="https://www.google.com/url?q=http://icap.atmos.und.edu/&amp;sa=D&amp;ust=1591369356118000">ICAP</a>
+				</span>
+				<span class="c16 c31">&nbsp; : International Centers for Aerosol Prediction (ICAP)</span>
+			</li>
+			<li class="c13">
+				<span class="c39">
+					<a class="c19" href="https://www.google.com/url?q=https://public.wmo.int/en/our-mandate/focus-areas/environment/SDS/warnings&amp;sa=D&amp;ust=1591369356118000">WMO SDS-WAS</a>
+				</span>
+				<span class="c31 c16">&nbsp;(WMO Sand and Dust Storm-Warning and Advisory System)</span>
+			</li>
+			<li class="c13">
+				<span class="c39">
+					<a class="c19" href="https://www.google.com/url?q=https://aqicn.org/forecast/models/&amp;sa=D&amp;ust=1591369356118000">Global Air Quality Index project</a>
+				</span>
+				<span class="c31 c16">&nbsp;(Singapore Met offic ) &nbsp;</span>
+			</li>
+			<li class="c13">
+				<span class="c39">
+					<a class="c19" href="https://www.google.com/url?q=http://www.weather.gov.sg/vfsp-was/about-vfsp-was/&amp;sa=D&amp;ust=1591369356119000">WMO VFSP-WASL</a>
+				</span>
+				<span class="c16">&nbsp; &nbsp;(WMO Vegetation Fires and Smoke Pollution Warning System)</span>
+			</li>
+		</ul>
+		<p class="c14 c26 c43">
+			<span class="c10"/>
+		</p>
+		<h4>EVALUATION</h4>
+		<p class="c24 c15">
+			<span class="c4">GEFS-Aerosols retrospectives are run from March 2019 and ending March 2020. Evaluations against the ATOM-1 2016 field experiment have already been performed by NOAA/OAR. &nbsp;Evaluation followed previous NGAC protocols (Bhattacharjee, et al. 2018) and </span>
+			<span class="c20 c29">
+				<a class="c19" href="https://www.google.com/url?q=https://www.emc.ncep.noaa.gov/gc_wmb/parthab/GEFS-Aerosol/html/fv3_mongridstat_png.html&amp;sa=D&amp;ust=1591369356120000">are available here</a>
+			</span>
+			<span class="c6 c4">. The following fields are evaluated daily by comparing model outputs to </span>
+		</p>
+		<ul class="c28 lst-kix_4n1u1craf2c3-0 start">
+			<li class="c24 c33 c15">
+				<span class="c6 c4">MODIS satellite AOD 1&deg; gridded product</span>
+			</li>
+			<li class="c24 c33 c15">
+				<span class="c6 c4">VIIRS satellite &nbsp;AOD 0.25&deg; degree gridded product</span>
+			</li>
+			<li class="c24 c33 c15">
+				<span class="c6 c4">AERONET AOD especially stations near dust and smoke sources</span>
+			</li>
+			<li class="c24 c33 c15">
+				<span class="c6 c4">International Centers for Aerosol Prediction (ICAP) ensemble forecast - 1&deg; total and dust AOD</span>
+			</li>
+			<li class="c24 c33 c15">
+				<span class="c6 c4">NASA GEOS-5/MERRA-II gridded total AOD and speciated analyses ( SO4, dust, OC, BC) </span>
+			</li>
+			<li class="c24 c15 c33">
+				<span class="c6 c4">Global PM2.5 and PM10 surface measurements </span>
+			</li>
+			<li class="c24 c33 c15">
+				<span class="c6 c4">Monthly compared Calipso aerosol profiles</span>
+			</li>
+		</ul>
+		<p class="c24 c15 c26">
+			<span class="c6 c4"/>
+		</p>
+		<p class="c24 c15">
+			<span class="c6 c4">The evaluation web site included daily and monthly averaged comparisons to above observations/analyses of</span>
+		</p>
+		<ul class="c28 lst-kix_6nzcle2uto21-0 start">
+			<li class="c24 c33 c15">
+				<span class="c6 c4">Gridded AOD RMSE,BIas and correlation on global and regional maps</span>
+			</li>
+			<li class="c24 c33 c15">
+				<span class="c6 c4">diurnal and daily time series at AERONET sites</span>
+			</li>
+		</ul>
+                <hr style="page-break-before:always;display:none;">
+                        <p class="c24 c15 c26">
+                                <span class="c6 c4"/>
+                        </p>
+                        <h4>October 2022 GEFS-Aerosols Changes</h4>
+                        <p class="c1 c15">
+                             <span class="c6 c4">The minor implementation of the GEFS-Aerosols version 12.3 scheduled for October 2022 includes the
+                                following upgrades and bug fixes:</span>
+                             <ul type=disc> 
+                                 <li> Fengsha dust parameterization bug fix.
+                                 <li> Update to anthropogenic emissions from CEDS-2014 to CEDS-2019 base year.
+                                 <li> Fix a bug in Unified Post Processor (UPP) Aerosol Optical Depth (AOD)
+                                      calculation that resulted in overestimates of AOD.
+                                 <li> Adjust aerosol physics (aerosol large-scale precipitation and convective
+                                      wet scavenging removal) to improve aerosol quality forecasts.
+                                 <li> Output dust PM10 (Particulate Matter of 10 micron or less size) at
+                                      the surface.
+                                 <li> Improvement in the GBBEPx smoke Organic Carbon emission process
+                                 <li> In addition to the above updates made to the single GEFS-Aerosol member,
+                                      cloud ceiling (geopotential meters), surface visibility (meters), and
+                                      surface frozen precipitation fraction (percent) from all GEFS ensemble
+                                      members are also added to the 0.25-deg atmospheric products for
+                                      distribution through NOMADS. 
+                             </ul>
+                        </p>
+		<hr style="page-break-before:always;display:none;">
+			<p class="c24 c15 c26">
+				<span class="c6 c4"/>
+			</p>
+			<h4>GEFS-Aerosols Output</h4>
+			<p class="c1 c15">
+				<span class="c6 c4">Outputs will be in grib2 and include the same fields currently output by NGAC but at a finer 0.25 degree resolution. &nbsp;These fields will include:</span>
+			</p>
+			<p class="c1 c15 c26">
+				<span class="c6 c4"/>
+			</p>
+			<a id="t.10c21b4f8fc639bace557e755e5fd67e64f3942f"/>
+			<a id="t.0"/>
+			<style>
+			table {
+				border: 1px solid black;
+			}
+			tr{
+				border: 1px solid black;
+			}
+			td{
+				border: 1px solid black;
+			}
+			</style>
+			<table class="c30">
+				<tbody>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">Table 1. Aerosol name</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">unit</span>
+							</p>
+						</td>
+						<td class="c57" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c9">Domain</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c29 c35">3D fields</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c34" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST1_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST2_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST3_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST4_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST5_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SEASALT2_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SEASALT3_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SEASALT4_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SEASALT5_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">BCPHILIC_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">BCPHOBIC_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">OCPHILIC_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">OCPHOBIC_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SO4_ON_HYBRID_LVL</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c29 c35">2D fields</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">AER_OPT_DEP_at550 (total)</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST_AER_OPT_DEP_at550</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SEASALT_AER_OPT_DEP_at550</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SULFATE_AER_OPT_DEP_at550</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ORGANIC_CARBON_AER_OPT_DEP_at550</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">BLACK_CARBON_AER_OPT_DEP_at550</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1 c26">
+								<span class="c3"/>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST25_SFC_MASS_CON (dust pm2.5)</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SEAS25_SFC_MASS_CON (sea salt pm2.5)</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">PM10_SFC_MASS_CON</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">PM25_SFC_MASS_CON</span>
+							</p>
+						</td>
+						<td class="c18 c23" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">ug/m3</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">1 hybrid level</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">PM10_COL_MASS_DEN</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">kg/m2</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">PM25_COL_MASS_DEN</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">kg/m2</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">DUST_COL_MASS_DEN (PM2.5)</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">kg/m2</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SEAS_COL_MASS_DEN (PM10)</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">kg/m2</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">BC_COL_MASS_DEN</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">kg/m2</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">OC_COL_MASS_DEN</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">kg/m2</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+					<tr class="c12">
+						<td class="c0" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">SULF_COL_MASS_DEN</span>
+							</p>
+						</td>
+						<td class="c18" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">kg/m2</span>
+							</p>
+						</td>
+						<td class="c2" colspan="1" rowspan="1">
+							<p class="c1">
+								<span class="c3">entire atmosphere</span>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="c14 c26">
+				<span class="c6 c4"/>
+			</p>
+			<p class="c14" id="h.tsp6m5ancdry">
+				<span class="c11 c55"><b>References</b></span>
+			</p>
+			<p class="c14 c26" id="h.myyjn2uokvlh">
+				<span class="c23 c51"/>
+			</p>
+			<p class="c14" id="h.jqkjd6w0b851">
+				<span class="c23 c45">Bhattacharjee, P. S., Wang, J., Lu, C.-H., and Tallapragada, V (2018). The implementation &nbsp;of &nbsp;NEMS &nbsp;GFS &nbsp;Aerosol &nbsp;Component &nbsp;(NGAC) Version 2.0 for global multispecies forecasting at NOAA/NCEP</span>
+				<span class="c45 c23">&ndash; &nbsp; Part &nbsp; 2: &nbsp; Evaluation &nbsp; of &nbsp; aerosol &nbsp; optical &nbsp;thickness.Geosci. Model &nbsp;Dev. &nbsp;11, &nbsp;2333&ndash;2351,https://doi.org/10.5194/gmd-11-2333-2018.</span>
+			</p>
+			<p class="c14 c26" id="h.51x1d9d8p385">
+				<span class="c45 c23"/>
+			</p>
+			<p class="c14" id="h.niqwubbxxqvo">
+				<span class="c23 c25">Chin, M., Diehl, T., Ginoux, P., and Malm, W. (2007). Intercontinental transport of pollution and dust aerosols: implications for regional air quality, Atmos. Chem. Phys., 7, 5501&ndash;5517, </span>
+				<span class="c44 c23">
+					<a class="c19" href="https://www.google.com/url?q=https://doi.org/10.5194/acp-7-5501-2007&amp;sa=D&amp;ust=1591369356166000">https://doi.org/10.5194/acp-7-5501-2007</a>
+				</span>
+				<span class="c21">&nbsp;</span>
+			</p>
+			<p class="c14 c26" id="h.o8n8h27o4lr6">
+				<span class="c21"/>
+			</p>
+			<p class="c14" id="h.5pfa9hchtja">
+				<span class="c21">Dong, X., Fu, J. S., Huang, K., Tong, D., and Zhuang, G., (2016). Model development of dust emission and heterogeneous chemistry within the Community Multiscale Air Quality modeling system and its application over East Asia, Atmos. Chem. Phys., 16, 8157&ndash;8180, <a href="https://doi.org/10.5194/acp-16-8157-2016">https://doi.org/10.5194/acp-16-8157-2016</a>.</span>
+			</p>
+			<p class="c14 c26" id="h.qf10uzb7rez0">
+				<span class="c21"/>
+			</p>
+			<p class="c14" id="h.pxl051md3b1e">
+				<span class="c23 c49">Grell, G.A. ,S.E. Peckham, R. Schmitz and S.A McKeen, G. Frost, W. Skamrock, B. Eder (2005). &nbsp;Fully coupled online chemistry within the WRF model: description and applications. &nbsp;Atmos. Envir. &nbsp;39, 6957-6975. &nbsp;</span>
+				<span class="c23 c47">
+					<a class="c19" href="https://www.google.com/url?q=https://doi.org/10.1016/j.atmosenv.2005.04.027&amp;sa=D&amp;ust=1591369356167000">https://doi.org/10.1016/j.atmosenv.2005.04.027</a>
+				</span>
+			</p>
+			<p class="c14 c26" id="h.c6qfn3qiib5v">
+				<span class="c23 c42"/>
+			</p>
+			<p class="c14" id="h.xhh1w6lyd72j">
+				<span class="c48 c23">Grell, G. A., &amp; Freitas, S. R., Stuefer, M., and J. D. Fast (2011). Inclusion of biomass burning in WRF-Chem: Impact on wildfires on weather forecasts. </span>
+				<span class="c23 c36">Atmospheric Chemistry and Physics</span>
+				<span class="c23 c48">, 11,5289&ndash; 5303. </span>
+				<span class="c5">
+					<a class="c19" href="https://www.google.com/url?q=https://doi.org/10.5194/acp-11-5289-2011">https://doi.org/10.5194/acp-11-5289-2011</a>
+				</span>
+			</p>
+			<p class="c14 c26" id="h.2sfxv7sn75qf">
+				<span class="c6 c50"/>
+			</p>
+			<p class="c14" id="h.2ahv6wvbouj6">
+				<span class="c23 c37">Hoesly, R. M., Smith, S. J., Feng, L., Klimont, Z., Janssens-Maenhout, G., Pitkanen, T., Seibert, J. J., Vu, L., Andres, R. J., Bolt, R. M., Bond, T. C., Dawidowski, L., Kholod, N., Kurokawa, J.-I., Li, M., Liu, L., Lu, Z., Moura, M. C. P., O&rsquo;Rourke, P. R., and Zhang, Q.: Historical (1750&ndash;2014) anthropogenic emissions of reactive gases and aerosols from the Community Emissions Data System (CEDS), Geosci. Model Dev., 11, 369-408, </span>
+				<span class="c23 c53">
+					<a class="c19" href="https://www.google.com/url?q=https://doi.org/10.5194/gmd-11-369-2018&amp;sa=D&amp;ust=1591369356168000">https://doi.org/10.5194/gmd-11-369-2018</a>
+				</span>
+				<span class="c58 c50 c23">, 2018.</span>
+			</p>
+			<p class="c14 c26" id="h.ooqhxrrxsnv4">
+				<span class="c50 c23 c58"/>
+			</p>
+			<p class="c14" id="h.5z79m6s1kco5">
+				<span class="c25 c23">Wang, J., Bhattacharjee, P. S., Tallapragada, V., Lu, C.-H., Kondragunta, S., da Silva, A., Zhang, X., Chen, S.-P., Wei, S.-W., Darmenov, A. S., McQueen, J., Lee, P., Koner, P., and Harris, A. (2018). The implementation of NEMS GFS Aerosol Component (NGAC) Version 2.0 for global multispecies forecasting at NOAA/NCEP &ndash; Part 1: Model descriptions, Geosci. Model Dev., 11, 2315&ndash;2332, </span>
+				<span class="c23 c44">
+					<a class="c19" href="https://www.google.com/url?q=https://doi.org/10.5194/gmd-11-2315-2018&amp;sa=D&amp;ust=1591369356168000">https://doi.org/10.5194/gmd-11-2315-2018</a>
+				</span>
+				<span class="c21">. </span>
+			</p>
+			<p class="c14 c26" id="h.i5ai2jd9v6ly">
+				<span class="c21"/>
+			</p>
+			<p class="c14" id="h.urho5gn695q5">
+				<span class="c21">Zhang, X., Kondragunta, S., Ram, J., Schmidt, C., and Huang, H.C. (2012). Near-real-time global biomass burning emissions product from geostationary satellite constellation, Journal of Geophysical Research, 117, D14201, doi:10.1029/2012JD017459.</span>
+			</p>
+			<p class="c14 c26" id="h.rrfzjdtzfzg">
+				<span class="c21"/>
+			</p>
+			<p class="c14" id="h.ye5i8dt37ojz">
+				<span class="c22">Zhang, X., Kondragunta, S., da Silva, A., Lu, S., Ding, H., Li, F., and Zhu, Y.: The blended global biomass burning emissions product from MODIS and geostationary satellites (GBBEPx), http://www.ospo.noaa.gov/Products/land/ gbbepx/docs/GBBEPx_ATBD.pdf (last access: 1 June 2018), 2014. </span>
+			</p>
+			<p class="c14 c26" id="h.q4bkq87q8289">
+				<span class="c21"/>
+			</p>
+			<p class="c15 c26 c27">
+				<span class="c31 c40"/>
+			</p>
+		</div>

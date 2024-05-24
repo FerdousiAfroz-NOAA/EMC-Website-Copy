@@ -1,0 +1,36 @@
+<?php
+
+//if (isset($_POST['data']) ) {
+    $utc = $_GET['utc'];
+    $data = json_decode($_GET['data']);
+    $listFile = $data->{'paramName'};
+    $filename = "";
+    
+    for($i = 0; $i < count($listFile); $i++) { 
+       
+       $searchValue = $utc.'/';
+       $replaceValue = $utc.'/pan_';
+       if ( strrpos($listFile[$i], "pan") == false ){
+        $basePath = str_replace('//www.emc.ncep.noaa.gov', '', $listFile[$i]);
+        //$url = '../../../../../../mmb/jcarley/rtma_urma/prod/RTMA/13/vec10m_Great_Lakes_RTMA_ANL.gif';
+        $url = '../../../../../..'.$basePath;
+        var_dump($url);
+        $file = fopen($url, "r");
+        if (!$file) {
+         echo "<p>Unable to open remote file.\n";
+         $filename = str_replace($searchValue, $replaceValue,  $listFile[$i]);
+         echo "The new filename will be changed to the following: ".$filename;
+         $listFile[$i] = $filename;
+         //exit;
+        }
+        fclose($file);
+      }
+    }
+    echo json_encode(array('success' => 1, 'results'=> $listFile));
+//}
+
+function UR_exists($url){
+   $headers=get_headers($url);
+   return stripos($headers[0],"200 OK")?true:false;
+}
+?>

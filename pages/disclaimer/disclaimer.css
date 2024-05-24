@@ -1,0 +1,14 @@
+#red-disclaimer-box{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    font-size: 18px;
+    background: #e74c3c;
+
+}
+
+#disclaimer-text{
+color: black;
+font-weight: bold;
+font-size: 16px;
+}

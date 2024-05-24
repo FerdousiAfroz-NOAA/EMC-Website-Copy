@@ -1,0 +1,222 @@
+/*-------------------
+---- Font faces ----
+---------------------*/
+
+/* body {
+  margin: auto;
+  display: table
+} */
+
+img {
+  border: 0;
+  vertical-align: middle;
+}
+
+.img-responsive {
+  display: block;
+  min-width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.rotateframe {
+  /*    padding: 15px*/
+  
+  margin: 20px 0
+}
+
+#rotatescroll {
+  position: relative;
+  border: 3px solid #0099d8;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  max-height: 400px;
+  max-width: 400px;
+  background-color: #f5f5f5;
+  padding-left: 40px;
+  padding-top: 40px;
+  padding-right: 44px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-bottom: 44px;
+}
+
+.viewport {
+  max-height: 300px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 300px;
+  border: 2px solid #0099d8;
+  background-color: #ccc;
+  border-radius: 100%;
+  z-index: 1000;
+}
+
+#rotatescroll .overview {
+  position: absolute;
+  width: 798px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+}
+
+#rotatescroll .overview li {
+  max-height: 300px;
+  max-width: 300px;
+  float: left;
+  position: relative;
+}
+
+.thumb {
+  background: #ffffff;
+  border: 2px solid #0099d8;
+  border-radius: 50%;
+  position: absolute;
+  top: -3px;
+  cursor: pointer;
+  left: 137px;
+  width: 24px;
+  z-index: 2000;
+  height: 24px;
+}
+
+.dot {
+  left: inherit !important;
+  top: 0 !important;
+  z-index: 100;
+  text-align: center;
+  overflow: hidden;
+  position: absolute;
+  /* top: 0; */
+  
+  right: 0;
+  width: 50%;
+  height: 50%;
+  transform-origin: 0% 100%;
+}
+
+.dot:after {
+  content: '';
+  border-left: 1px solid #0099d8;
+  display: table-cell;
+  height: 42px;
+  left: 0;
+  position: absolute;
+}
+
+.text {
+  padding-top: 30px;
+  
+}
+
+/* .flip.text span { */
+/*   top: -2px; */
+/* } */
+
+/* .active .flip.text span { */
+/*   top: 18px !important; */
+/* } */
+
+.active h1 div.text {
+  background-color: transparent;
+  color: #000;
+  /*color: #fff;*/
+  padding: 15px;
+  height: 8px !important;
+}
+
+.active .curve {
+  position: relative;
+  top: -12px;
+  width: 178px;
+  height: 25px;
+  border: solid 18px transparent;
+  border-color: transparent transparent transparent transparent;
+  /*border: solid 18px #0099d8;
+  border-color: #0099d8 transparent transparent transparent;*/
+  padding: 0;
+  border-radius: 50%/58px 58px 0 0;
+  margin: 0 auto;
+}
+
+.active .flip-curve.curve {
+  top: -14px !important;
+}
+
+h1 span {
+  line-height: 0.65;
+  white-space: pre;
+  overflow: visible;
+  padding: 0px;
+}
+
+.flip {
+  /*transform: rotate(180deg)*/
+}
+
+.dot h1 {
+  position: absolute;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  text-align: center;
+  transform: skewY(45deg) rotate(22.5deg);
+  font-family: Corbel, "Trebuchet Ms", sans-serif;
+  font-weight: bold;
+  margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.dot:first-child {
+  transform: rotate(327.5deg) skewY(-45deg);
+}
+
+.dot:first-child .text { 
+	left: 25px; 
+	 transform: rotate(7deg);
+}
+
+.dot:nth-child(2) {
+  transform: rotate(35.5deg) skewY(-45deg);
+}
+/* .dot:nth-child(2) .text {  */
+/* 	margin-left: 75px; */
+/* } */
+
+.dot:nth-child(3) {
+  transform: rotate(77.5deg) skewY(-45deg);
+}
+
+.dot:nth-child(4) {
+  transform: rotate(122.5deg) skewY(-45deg);
+}
+
+.dot:nth-child(5) {
+  transform: rotate(170.5deg) skewY(-45deg);
+}
+
+.dot:nth-child(6) {
+  transform: rotate(222.5deg) skewY(-45deg);
+
+}
+
+.dot:nth-child(7) {
+  transform: rotate(282.5deg) skewY(-45deg);
+}
+/* .dot:nth-child(7) .text {  */
+/* 	margin-left: 15px; */
+/* } */
+
+
+/* .dot:nth-child(8) { */
+/*   transform: rotate(292.5deg) skewY(-45deg); */
+/* } */

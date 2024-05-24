@@ -1,0 +1,84 @@
+.footer, .footer.container-fluid {
+    border-top: 0 !important;
+    padding: 0 !important;
+    background-color: #292724; /*#112E51;*/
+    color: #fff;
+    height: 250px;
+	width: 100%;
+	left:0px;
+	bottom:0px;
+	position:relative;
+	padding-top: 5rem;
+	padding-bottom: 3rem;
+}
+
+.footer-container{
+    display: flex !important;
+    margin-left: 9rem;
+}
+
+.usa-footer-logo-img{float:left; margin-right:20px; height:75px; width:75px;}
+.usa-footer-logo-heading{font-size:1.75rem; float:left; margin-top:.75em; color:#fff !important;}
+
+.social-media-buttons{color:red !important}
+.usa-footer-secondary-section{background-color:#292724;padding-top:5rem; padding-bottom:3rem; max-width: 100%;margin: 0 auto;}
+.usa-footer-secondary-section *{color:#9bdaf1;  text-decoration: none;   font-size: 1.2rem;}.usa-footer-secondary-section span.ext{display:none}
+.usa-footer-secondary-section .usa-footer-contact-links{text-align:left;text-decoration:none;}
+.usa-footer-secondary-section .usa-footer-contact-links a{vertical-align:top; color:#9bdaf1;}
+.usa-footer-secondary-section .usa-footer-contact-links a:hover{color:#9bdaf1; text-decoration:underline;}
+.usa-footer-secondary-section .footer-nesdis-links a:hover{color:#9bdaf1; text-decoration:underline;}
+.usa-footer-contact-address{font-size:12px; padding-bottom: 5px;}
+.usa-footer-contact-heading{font-size:1.6rem;text-transform:uppercase !important;color:#fff;}
+
+
+.nav-search{
+ margin-left: 1rem;   
+}
+ a.site-slogan{
+    font-size: 0.83rem;
+    line-height: .8rem;
+    font-weight: 600;
+    color: #666464;
+    width: 500px;
+    text-decoration: none;
+}
+
+.social{
+    padding: 7px;
+}
+
+.footer-contact-us{
+    margin-left: 6.5rem;
+}
+
+a.site-name{
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.usa-header-logo-img .site-title {
+    line-height: 1rem;
+    text-decoration: none;
+}
+
+.footer-nesdis-links{
+	margin:3rem auto 1rem auto !important;
+	list-style-type:none;
+	padding:10px 0 0 0 !important;
+	border-top:1px solid #fff;
+	border-top-style: dotted;
+	font-size:1.4rem;
+	display:table;
+	}
+.footer-nesdis-links li{margin:0 !important;display:inline-block;list-style-type:none;}
+.footer-nesdis-links li a{border-right:1px solid #fff;padding:0 10px !important; font-size: 1rem;
+    text-decoration: none;}
+.footer-nesdis-links li:first-child{padding-left:0}
+.footer-nesdis-links li:last-child{padding-right:0;}
+.footer-nesdis-links li:last-child a{border-right:none}
+@media (min-width: 768px){
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 40%;
+}
+}

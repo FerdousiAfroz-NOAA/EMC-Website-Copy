@@ -1,0 +1,97 @@
+*{
+    padding: 0;
+    height: 0;
+    width: 0;
+}
+
+body{
+    background-color: oldlace;
+}
+#changeBtn{
+    width: 156px;
+    height: 35px;
+    display: flex;
+    margin-left: 20em;
+    position: relative;
+    top: 48px;
+}
+
+.doc-link{
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+#menu-container{
+    display: flex;
+    width: 85em;
+    height: 4em;
+    padding-left: 2em;
+    margin: 1em 30em;
+}
+
+.form-control{
+    width:10% !important;
+    margin-right:1em;
+}
+
+#model-protoype-headline{
+    font-size: 37px;
+    display: flex;
+    margin-left: 13em;
+    width: 16em;
+}
+
+img{
+    border: 5px solid limegreen;
+    width: 74em;
+    height: 41em;
+    margin: 0 18em;
+    border-radius: 0.50em;
+    position: relative;
+    bottom: 3em;
+}
+
+
+/**hide and show elements**/
+#biasmapsDomain{
+    display: none;
+}
+
+#biaspdfDomain, #diffmapsDomain{
+    display: none;
+}
+
+#modelFiveLabel, #modelFive, #maskLabel, #maskSelect, #periodLabel, #periodSelect, #domainLabel, #n7,#n28,#biaspdfDomain, #diffmapsDomain{
+   display: none;
+}
+
+#n7, #n28, #nLabel, #oceanMask,#noMask,#landMask{
+    display:none ;
+}
+
+#downloadImage {
+    width: 8.5em !important;
+    height: 3em !important;
+    background: none;
+    border-radius: 0em;
+    margin: 0.40em !important;
+    outline: none;
+    padding: 0;
+    border: none;
+    text-decoration: none;
+
+}
+
+.btn:focus {
+    outline: none;
+  }
+
+
+
+

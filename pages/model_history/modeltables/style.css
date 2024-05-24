@@ -1,0 +1,65 @@
+ #regional-model-container{
+    display: flex;
+    justify-content: center;
+    /* height:100vh; */
+    margin-top: -17em;
+    /* overflow: hidden; */
+}
+
+#dedication{
+    text-decoration: underline;
+    color:red;
+    font-size: 20px;
+    text-align: center;
+}
+
+
+#references-table{
+  display: flex;
+  justify-content: center;
+}
+
+#references-table ul li, #contact-table ul li {
+    margin-top:1em;
+}
+
+#main-container{
+    display: flex;
+    justify-content: center;
+    padding: 5em;
+    /* height: 100vh; */
+    /* overflow: hidden; */
+}
+
+#tblOne, #tblTwo, #tblThree,#tblFour {
+    margin:5px;
+    border: 1px solid grey;
+    width: 25% 
+}
+   
+.abbrv{
+    margin:5px;
+    border: 1px solid grey;
+    width: 50%  ; 
+    margin:  auto;
+}
+
+.all{
+    display: flex;
+    justify-content: center;
+}
+.legends{
+    display: inline-block;
+}
+.legend{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    display: inline-block;
+    margin-left: 39em;
+    padding: 2em;
+}
+
+
+
+

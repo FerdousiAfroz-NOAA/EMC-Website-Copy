@@ -1,0 +1,28 @@
+body {background-color:white}
+
+p {color:black; line-height:1.5}
+
+li {color:black; line-height:1.5}
+
+#content hr {display:block; width:80%; text-align:center}
+
+#content p a {color:blue }
+
+#content table a {color:blue }
+
+#content li a {color:blue}
+
+.defaultfont {font-family:Helvetica; font-weight:400}
+
+h1, h2, h3, h4, h5, h6 {text-align:center}
+
+em.emphasis {font-style:normal; font-weight:600}
+em.definition {font-style:italic}
+em.subpname {font-style:italic; font-family:monospace; font-weight:600}
+em.mnemname {font-style:normal; font-family:monospace; font-weight:500}
+em.varname {font-style:italic; font-family:monospace; font-weight:500}
+
+pre {color:black; font-family:monospace; font-weight:500}
+
+pre.subp {font-style:italic}
+pre.mnem {font-style:normal}

@@ -1,0 +1,344 @@
+/********************************
+* Contain the header styles.
+*********************************/
+
+
+.noaa-site-info {
+    width: 250px;
+    padding-left: 15px;
+    padding-top: 5px;
+    
+}
+.noaa-site-info a.site-name{
+    line-height: 1.10526;
+    font-size: 11px;
+    font-weight: 700;
+    
+	
+}
+
+.noaa-site-info a.site-slogan{
+    background-color: transparent;
+    font-size: 8px;
+}
+
+.noaa-site-info a {
+
+    display: block;
+    text-decoration: none;
+    font-family: "Helvetica Neue",helvetica,Arial,sans-serif;
+
+}
+
+.noaa-logo a {
+
+    display: block;
+    text-decoration: none;
+    font-family: "Helvetica Neue",helvetica,Arial,sans-serif;
+    padding-left: 20px;
+
+}
+
+.menu-links{
+	background-color: #00467f;
+}
+
+
+.header-content{
+	/*position: relative;*/
+	width: 100%; 
+	height:180px
+}
+
+/*
+ * Overriding the bootstrap padding since bootstraps automatically adds 15px of padding.
+ */
+.container-fluid { 
+  padding: 0px;
+}
+
+
+.navbar-brand {
+  display: inline-block;
+  float: none;
+  font-size: 17px;
+  font-weight: 600;
+  height: 100%;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.site-brand-name{
+	padding-left: 20px;
+}
+
+.navbar-brand img {
+  height:85%;
+  width:85%;
+}
+
+/* Center on mobile*/
+@media only screen and (max-width : 768px){
+	.navbar-brand {
+	  padding: 0px;
+	  font-size: 12px;
+	}
+	.navbar-brand>img {
+	  height: 70%;
+	  width: 70%;
+	}
+	
+	.header-content{
+	 position: relative;
+	 width: 100%; 
+	}
+}
+
+
+
+.search-wrap {
+	position: aboslute;
+	
+	/*transform: translate(-50%, -50%);*/
+	
+}
+
+.search-wrapper.active .input-holder .search-input {
+    opacity: 1;
+    transform: translate(0, 10px);
+}
+.search-wrapper .search-icon {
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50px;
+    background: #0099d8;
+	color: #FFF;
+    padding:0px;
+    outline:none;
+    position: relative;
+    z-index: 2;
+    float:right;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.search-icon {
+	background: #0099d8;
+}
+
+.search-icon:hover {
+	background-color: #0099d8;
+	color: white;
+	opacity: 0.8;
+}
+
+.result-container{
+	position: absolute;
+	z-index: 300;
+	background:  #0099d8;
+	color: white;
+	padding: 5px;
+}
+.result-container ul{
+	list-style-type: none;
+}
+
+.result-container ul li{
+	padding: 2px;
+}
+
+.result-container ul li a{
+	color: white;
+}
+
+ @media screen and (max-width: 560px) { .search-wrapper.active .input-holder {width:200px;}}
+
+/**************** 
+ Navigation Menu
+ *****************/
+ .navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.menu_main_nav {
+	/*margin-top: 60px;*/
+	padding-top: 10px;
+	list-style-type: none;
+	padding-bottom: 10px;
+}
+
+.menu_main_nav li a {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1em;
+    font-weight: 600;
+	padding: 1.2em 1.2em;
+	color: white;
+}
+
+.menu_main_nav li a:hover {
+	color: white;
+	/*background-color: #112e51;*/
+	background-color:#007eb2;
+}
+
+
+
+
+@media (min-width: 979px) {
+	.dropdown:hover .dropdown-menu {
+		display: block;
+		margin-top: 0px;
+		background-color: #0099d8;
+		color: #fff;
+	 }
+}
+ 
+.nav-item .dropdown-menu li a {
+	background-color: #0099d8;
+	color: #fff;
+	margin-top: -10px;
+ }
+
+.top_info_links{
+	list-style-type: none;
+    top:0;
+	/*margin-left: 75%;*/
+	font-family: "Montserrat", sans-serif;
+    font-size: 1.03rem;
+    line-height: 1em;
+    font-weight: 600;
+}
+
+.top_info_links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.top_info_links li a{
+    float: left;
+	padding: 15px 15px;
+}
+
+
+.navbar .navbar-toggler .icon-bar {
+  background: #3498DB;
+  
+}
+.navbar .navbar-toggler{
+	border-color: #3498DB;
+}
+
+
+.buttonCircleBase{
+	background-color: #0099d8;
+    border: none;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	border-radius: 50%;
+}
+
+.buttonCircleBase img{
+	height: 50px;
+	width: 50px;
+
+	}
+}
+
+.weather-widget-form {
+    display: table;
+    clear: both;
+    overflow: hidden;
+}
+
+.weather-widget-form:not(.has-weather) {
+    background-image: none !important;
+}
+.weather-widget-form {
+    /*padding: 20px;*/
+    padding-top: 8px;
+    padding-left: 5px;
+    position: relative;
+    text-align: left;
+    *zoom: 1;
+}
+
+
+
+@font-face {
+    font-family: 'weather';
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot');
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.ttf') format('truetype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.weatherLnk{
+	padding:none;
+}
+
+.icon-0:after { content: ":"; }
+.icon-1:after { content: "p"; }
+.icon-2:after { content: "S"; }
+.icon-3:after { content: "Q"; }
+.icon-4:after { content: "S"; }
+.icon-5:after { content: "W"; }
+.icon-6:after { content: "W"; }
+.icon-7:after { content: "W"; }
+.icon-8:after { content: "W"; }
+.icon-9:after { content: "I"; }
+.icon-10:after { content: "W"; }
+.icon-11:after { content: "I"; }
+.icon-12:after { content: "I"; }
+.icon-13:after { content: "I"; }
+.icon-14:after { content: "I"; }
+.icon-15:after { content: "W"; }
+.icon-16:after { content: "I"; }
+.icon-17:after { content: "W"; }
+.icon-18:after { content: "U"; }
+.icon-19:after { content: "Z"; }
+.icon-20:after { content: "Z"; }
+.icon-21:after { content: "Z"; }
+.icon-22:after { content: "Z"; }
+.icon-23:after { content: "Z"; }
+.icon-24:after { content: "E"; }
+.icon-25:after { content: "E"; }
+.icon-26:after { content: "3"; }
+.icon-27:after { content: "a"; }
+.icon-28:after { content: "A"; }
+.icon-29:after { content: "a"; }
+.icon-30:after { content: "A"; }
+.icon-31:after { content: "6"; }
+.icon-32:after { content: "1"; }
+.icon-33:after { content: "6"; }
+.icon-34:after { content: "1"; }
+.icon-35:after { content: "W"; }
+.icon-36:after { content: "1"; }
+.icon-37:after { content: "S"; }
+.icon-38:after { content: "S"; }
+.icon-39:after { content: "S"; }
+.icon-40:after { content: "M"; }
+.icon-41:after { content: "W"; }
+.icon-42:after { content: "I"; }
+.icon-43:after { content: "W"; }
+.icon-44:after { content: "a"; }
+.icon-45:after { content: "S"; }
+.icon-46:after { content: "U"; }
+.icon-47:after { content: "S"; }
+

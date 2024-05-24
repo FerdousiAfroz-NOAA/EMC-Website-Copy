@@ -1,0 +1,122 @@
+/*body.section-search .region-sidebar-first {
+    padding-top: 1.75em;
+}
+
+html, button, input, select, textarea {
+    font-family: "Open Sans",Verdana,"DejaVu Sans",sans-serif;
+}
+
+.two-sidebars .region-sidebar-first {
+    float: left;
+    width: 20%;
+    margin-left: 0%;
+    margin-right: -20%;
+    padding-top: 0;
+}
+
+#header, #content, .region-sidebar-first, .region-sidebar-second {
+    padding-left: .75em;
+    padding-right: .75em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    word-wrap: break-word;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+    display: block;
+}
+
+#main .block-facetapi, #main #block-apachesolr-search-sort {
+    padding: 0;
+    background-color: #EFEFEF;
+    border-bottom: 1px solid #fff;
+}
+
+sidebar_second.first {
+    border-top: 1px dotted #000;
+}
+
+#main .block, #main .node-sidebar_second {
+    margin: 0;
+}
+
+#header, #content, .region-sidebar-first, .region-sidebar-second {
+    word-wrap: break-word;
+}
+
+#main .block-facetapi.active h2::before, #main #block-apachesolr-search-sort.active h2::before {
+    background-image: url(img/arrow-sprite.png);
+    background-repeat: no-repeat;
+    vertical-align: baseline;
+    width: 21px;
+    height: 12px;
+    display: inline-block;
+    background-position: -21px 0;
+}
+
+#main .block-facetapi h2.block-title::before, #main #block-apachesolr-search-sort h2.block-title::before {
+    background-image: url(img/arrow-sprite.png);
+    background-repeat: no-repeat;
+    vertical-align: baseline;
+    width: 21px;
+    height: 12px;
+    display: inline-block;
+    background-position: 0 0;
+    content: ' ';
+}
+
+#main .block-facetapi.active h2, #main #block-apachesolr-search-sort.active h2 {
+    font-weight: 700;
+}
+
+#main .block-facetapi h2.block-title, #main #block-apachesolr-search-sort h2.block-title {
+    font-size: 1em;
+    padding: 0.6em 0;
+    line-height: 1.38;
+    color: #275992;
+    cursor: pointer;
+}
+
+#main .block h2, #main .node-sidebar_second h2 {
+    margin: 0;
+}
+
+#header, #content, .region-sidebar-first, .region-sidebar-second {
+    word-wrap: break-word;
+}
+
+#main .block-facetapi.active > .item-list, #main #block-apachesolr-search-sort.active > .item-list {
+    display: block;
+}
+
+#header, #content, .region-sidebar-first, .region-sidebar-second {
+    word-wrap: break-word;
+}
+
+#main .block-facetapi .item-list ul, #main #block-apachesolr-search-sort .item-list ul {
+    padding: 0 0 0 0.3em;
+    list-style: none;
+}
+
+.item-list ul {
+    margin: 0 0 0.75em 0;
+}
+
+#main .block-facetapi li.first, #main #block-apachesolr-search-sort li.first {
+    margin: 0;
+}
+
+#main .block-facetapi li, #main #block-apachesolr-search-sort li {
+    line-height: 1.38;
+    font-weight: 700;
+}
+
+.item-list ul li {
+    padding: 0;
+}
+
+#main .block-facetapi .item-list ul, #main #block-apachesolr-search-sort .item-list ul {
+    list-style: none;
+}

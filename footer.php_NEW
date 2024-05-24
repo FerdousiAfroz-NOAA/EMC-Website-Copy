@@ -1,0 +1,62 @@
+
+
+				</div>
+				
+				<div class="usa-footer-contact-links col-md-3">
+					<address>
+						<div class="usa-footer-contact-heading">Contact Us</div>
+						<div class="usa-footer-contact-address">NOAA Center for Weather and Climate Prediction (NCWCP) 5830 University Research Court College Park, MD 20740</div>
+ 						<div><a href="https://www.emc.ncep.noaa.gov/emc/pages/contact.php" rel="nofollow" class="mailto" id="anch_78"><i class="fa fa-envelope-o" aria-hidden="true"></i>Email Us </a></div>
+					</address>
+				</div>
+
+				<div class="usa-footer-contact-links col-md-3">
+					<div class="usa-social-links">
+						<div class="usa-footer-contact-heading">Follow Us</div>
+						<div class="  social-media-buttons">
+							<a class="social" href="https://www.facebook.com/NOAA-NWS-Environmental-Modeling-Center-151823641556512/"><i class="  fa-brands fa-facebook"></i></a>
+							<a href="https://www.instagram.com/nws/?hl=en" class=" social fa-brands fa-instagram"></a>
+							<a href="https://www.youtube.com/channel/UCNXpWLqwZTukeycJHyToKKw" class=" social fa-brands fa-youtube"></a>
+						</div>
+						<div class="social-media-buttons" >
+							<a href="https://twitter.com/nwsemc" class=" social fa-brands fa-twitter"></a>
+							<a href="https://www.flickr.com/groups/nws/" class="social fa-brands fa-flickr"></a>
+							<a href="http://www.ncep.noaa.gov/newsletter/" class="social fa-solid fa-rss"></a>
+						</div>
+					</div>
+				</div>
+
+		</div>
+	</div>
+
+
+		<div class="container">
+			<div class="col-md-12">
+				<ul class="footer-nesdis-links">
+					<li><a href="https://www.weather.gov/about/" title="About Us" id="anch_79">About Us</a></li>
+					<li><a href="https://www.weather.gov/privacy" title="NOAA's Privacy Policy" id="anch_79">Privacy Policy</a></li>
+					<li><a href="http://www.noaa.gov/foia-freedom-of-information-act" title="Freedome of Information Act" id="anch_80">Freedom Of Information Act</a></li>
+					<li><a href="https://www.weather.gov/glossary" title="NWS Glossary" id="anch_80">NWS Glossary</a></li>
+					<li><a href="http://www.cio.noaa.gov/services_programs/info_quality.html" title="Information Quality" id="anch_81">Information Quality</a></li>
+					<li><a href="https://www.weather.gov/disclaimer" title="Disclaimer" id="anch_82">Disclaimer</a></li>
+					<li><a href="http://www.commerce.gov/" title="United States Department of Commerce" id="anch_84">Department of Commerce</a></li>
+					<li><a href="http://www.noaa.gov" title="NOAA" id="anch_85">NOAA</a></li>
+					<li><a href="http://www.emc.noaa.gov/" title="EMC" id="anch_86">EMC</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>	
+	</footer>
+
+	
+    <script type="text/javascript" src="https://www.emc.ncep.noaa.gov/emc/js/main/jquery-dateFormat-master/dist/jquery-dateFormat.js"></script>
+    <script type="text/javascript" src="https://www.emc.ncep.noaa.gov/emc/js/main/bootstrap-notify-3.1.3/bootstrap-notify.js"></script>
+	<script type="text/javascript" src="https://www.emc.ncep.noaa.gov/emc/js/main/main.js"></script>
+	<script>
+	//$(document).ready(function(){
+		//pageLoadsWeatherData();
+	//});
+	</script>
+
+</body>
+</html>

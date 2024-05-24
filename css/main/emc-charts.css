@@ -1,0 +1,182 @@
+.chart-controls .parameter-control {
+    display: inline-block;
+}
+.chart-controls::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.chart-controls { margin-bottom: 8px;}
+.chart-controls .bar-2 {float: right;}
+.ui-button { border: 1px solid #ddd;}
+.ui-button-icon-only {width: 2.2em;}
+.ui-button, .ui-button:active, .ui-button:hover, .ui-button:link, .ui-button:visited {
+    text-decoration: none;
+}
+.ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    line-height: normal;
+    margin-right: .1em;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    overflow: visible;
+    border-radius: 1px;
+}
+.ui-button-icon-only .ui-icon {left: 50%;  margin-left: -8px;}
+.ui-button-icon-only .ui-icon, .ui-button-icons-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.ui-icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+    overflow: hidden;
+}
+
+.ui-button-icons-only .ui-button-icon-secondary, .ui-button-text-icon-secondary .ui-button-icon-secondary, .ui-button-text-icons .ui-button-icon-secondary {
+    right: .25em;
+}
+.ui-state-default .ui-icon, .ui-tabs-nav.ui-widget-header .ui-state-default .ui-icon {
+    background-image: url(/sites/all/modules/ecmwf/chart_app/builds/d20840245d881f5cbf04e4f4e8165c7a.png);
+}
+.ui-button-icon-only .ui-icon {
+    left: 50%;
+    margin-left: -8px;
+}
+
+.glyphicon .glyphicon-arrow-left{
+    background-position: -96px -48px;
+	color: black;
+}
+.ui-icon { width: 16px; height: 16px;}
+.ui-button {
+    line-height: normal;
+    cursor: pointer;
+    text-align: center;
+}
+
+.parameter-control .parameter-selector, .parameter-selector.ui-button {
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+	background:#0099d8;
+}
+.ui-button-text{ padding-right: 10px;}
+
+.chart-column .parameter-selector, .chart-column .parameter-selector.ui-button-text-icon-secondary .ui-button-text {
+    padding-top: .2em;
+    padding-bottom: .2em;
+}
+.text-filter-row{
+	float:left;
+	position: relative;
+}
+.add-on{
+	float:left;
+}
+
+.facets{
+	float:left;
+	position: relative;
+	padding-bottom: 36px;
+}
+
+.facets > ul {
+    padding-left: 0;
+}
+
+.facets ul li ul li{
+    border: none;
+}
+.filters > div:not(.text-content) ul {
+    list-style: none;
+    padding: 0;
+}
+
+.facets > p, ul, ol, dt, pre {
+    margin: 0.6em 0 0 0;
+}
+
+.facets li li {
+    overflow-y: hidden;
+    transition: max-height .5s ease-in-out;
+    -moz-transition: max-height .5s ease-in-out;
+}
+
+.facets li li {
+    padding-left: 20px;
+    line-height: 1.85;
+}
+input[type="checkbox"] {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+	width: 17px;
+    height: 17px;
+	box-sizing: border-box;
+	padding: 0;
+	background: #000;
+}
+
+/* .styled label::before {
+    margin-left: -18px;
+}
+.styled label::before {
+    display: inline-block;
+    position: absolute;
+    content: "";
+    width: 17px;
+    height: 17px;
+    left: 0;
+    margin: 0 0 0 -22px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.styled label::before {
+    display: inline-block;
+    position: absolute;
+    content: "";
+    width: 17px;
+    height: 17px;
+    left: 0;
+    margin: 0 0 0 -22px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+} */
+
+.styled label {
+    padding-left: 7px;
+}
+.facets label {
+    max-width: calc(100% - 16px);
+    line-height: 20px;
+}
+.styled label {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    padding-left: 5px;
+}
+.facets label {
+    font-weight: normal;
+}
+
+.facets a {
+    margin-left: 27px;
+    line-height: 1.9;
+}
+.facets a:hover, a:active {
+    outline: 0;
+}
+.facets a:link {
+    color: #275992;
+}
+
+.left-side-bar{
+	width: 320px;
+}
